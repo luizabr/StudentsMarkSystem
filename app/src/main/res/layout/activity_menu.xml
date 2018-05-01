@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="45dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
+
+        <TextView
+            android:id="@+id/successMsgLbl"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="You've successfully submitted student's marks!"
+            android:textSize="17dp"/>
+
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/editMarkBtn"
+            android:background="#00aaa1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:padding="12dp"
+            android:text="Edit a mark"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/viewStudentsBtn"
+            android:background="#00aaa1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:padding="12dp"
+            android:text="View all students"/>
+
+            <android.support.v7.widget.AppCompatButton
+            android:id="@+id/loadSubjectsBtn"
+            android:background="#00aaa1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:padding="12dp"
+            android:text="Go to subjects"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/logoutBtn"
+            android:background="#00aaa1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:padding="12dp"
+            android:text="Log out"/>
+
+    </LinearLayout>
+</ScrollView>
