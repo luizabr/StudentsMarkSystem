@@ -60,14 +60,6 @@ public class DBHelper extends SQLiteOpenHelper {
             + " FOREIGN KEY(" + SUBJECT_ID + ") REFERENCES " + SUBJECTS_TABLE + "(" + SUBJECT_ID + "),"
             + " FOREIGN KEY(" + GROUP_ID + ") REFERENCES " + GROUPS_TABLE + "(" + GROUP_ID + "));";
 
-//    private static final String CREATE_TEACHERS_SUBJECTS_GROUPS_TABLE = "CREATE TABLE "
-//            + TEACHERS_SUBJECTS_GROUPS_TABLE
-//            + "(t_id INTEGER PRIMARY KEY, s_id INTEGER PRIMARY KEY, g_id INTEGER PRIMARY KEY,"
-//            //not sure if they should be primary
-//            + " FOREIGN KEY(t_id) REFERENCES " + TEACHERS_TABLE + "(" + TEACHER_ID + "),"
-//            + " FOREIGN KEY(s_id) REFERENCES " + SUBJECTS_TABLE + "(" + SUBJECT_ID + "),"
-//            + " FOREIGN KEY(g_id) REFERENCES " + GROUPS_TABLE + "(" + GROUP_ID + "));";
-
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -105,7 +97,7 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    //INSERTING DATA IN BASE
+    //INSERTING DATA
     private void initTeachers(SQLiteDatabase db){
         db.execSQL("INSERT INTO " + TEACHERS_TABLE
                 + " VALUES (1, '11111'), (2, '22222'), (3, '33333');");
