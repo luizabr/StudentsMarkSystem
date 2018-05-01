@@ -1,7 +1,6 @@
 package com.example.luizaabraamyan.studentmarkssystem;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -27,6 +26,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         idUniversityNum = findViewById(R.id.universityID);
         login = findViewById(R.id.loginBtn);
         context = this;
@@ -37,15 +37,15 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if(idUniversityNum.getText().length() == 0) {
-                    showMessage("Error", "Please enter your identification number!");
+                    Toast.makeText(context, "Empty identification number field!", Toast.LENGTH_SHORT).show();
                     return;
                 } else if(idUniversityNum.getText().length() != 5) {
-                    showMessage("Error", "Your identification number is wrong!");
+                    Toast.makeText(context, "Wrong identification number!", Toast.LENGTH_SHORT).show();
                 } else if(idUniversityNum.getText().length() == 5){
                     cursor = db.rawQuery("SELECT * FROM teachers " +
                             "WHERE universityId = '" + idUniversityNum.getText() + "';", null);
                     if(cursor.getCount() == 0){
-                        showMessage("Error", "Your identification number is not in the database!");
+                        Toast.makeText(context, "Not existing identification number !", Toast.LENGTH_SHORT).show();
                     }else{
                         Intent intent = new Intent(context, SubjectsActivity.class);
                         intent.putExtra("idUniversityNum", idUniversityNum.getText().toString());
@@ -57,15 +57,6 @@ public class MainActivity extends Activity {
             }
         });
         }
-
-    public void showMessage(String title,String message)
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setTitle(title);
-        builder.setMessage(message);
-        builder.show();
-    }
 
     public void clearText()
     {
