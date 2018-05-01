@@ -5,18 +5,22 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/subjectName"
-        android:background="#00aaa1"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        android:layout_marginBottom="25dp"
-        android:layout_gravity="center"
-        android:padding="17dp"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textColor="#ffffff"
-        android:textSize="17dp"/>
-
+        <Button
+            android:id="@+id/subjectName"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:layout_marginBottom="25dp"
+            android:layout_gravity="center"
+            android:padding="17dp"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="17dp"
+            android:background="@drawable/buttonshape"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            />
 </LinearLayout>
