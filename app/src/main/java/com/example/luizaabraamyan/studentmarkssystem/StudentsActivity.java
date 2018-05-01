@@ -1,17 +1,16 @@
 package com.example.luizaabraamyan.studentmarkssystem;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,11 +21,9 @@ public class StudentsActivity extends Activity {
     private StudentAdapter adapter;
     SQLiteDatabase db;
     DBHelper dbHelper;
-//    String studentName;
-//    String studentFacNum;
-//    EditText mark;
     int groupId;
     Button save;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +34,12 @@ public class StudentsActivity extends Activity {
 
         dbHelper = new DBHelper(getApplicationContext());
         db = dbHelper.getWritableDatabase();
+        context = this;
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         groupId = bundle.getInt("groupId");
         save = findViewById(R.id.saveBtn);
-        //test
 
         Cursor cursor = db.rawQuery("SELECT * FROM students " +
                 "JOIN groups ON (groups.groupId = students.groupId)"
@@ -61,6 +58,9 @@ public class StudentsActivity extends Activity {
                     students.add(student);
                 }while(cursor.moveToNext());
             }
+        }else{
+            Toast.makeText(this,
+                    "No students registered in the group!", Toast.LENGTH_SHORT).show();
         }
 
         recyclerView = findViewById(R.id.recycler_view_students);
@@ -71,37 +71,29 @@ public class StudentsActivity extends Activity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
-        List<Student> list = new ArrayList<>();
-
-//        save.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//               for(int i = 0; i < students.size(); i++){
-//                   View view = recyclerView.getChildAt(i);
-//                   TextView nameTxt = view.findViewById(R.id.studentName);
-//                   String studentName = nameTxt.getText().toString();
-//                   TextView facNumTxt = view.findViewById(R.id.facNum);
-//                   String facNum = facNumTxt.getText().toString();
-//                   EditText studentMark = view.findViewById(R.id.studentMark);
-//                   Editable mark = studentMark.getText();
-//
-//                   Student student = new Student();
-//                   student.put()
-//               }
-//            }
-//        });
-
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                for(int i = 1; i < cursorSize; i++){
+                for(int i = 0; i < cursorSize; i++){
                     View view = recyclerView.getChildAt(i);
                     EditText studentMark = view.findViewById(R.id.studentMark);
-                    int mark = Integer.valueOf(studentMark.getText().toString());
-                    db.execSQL("UPDATE students SET studentMark = '" + mark + "';");
+
+                    if(studentMark.getText().length() == 0){
+                        Toast.makeText(getApplicationContext(),
+                                "All marks should be filled before saving!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }else if(Integer.valueOf(studentMark.getText().toString()) <= 1 ||
+                             Integer.valueOf(studentMark.getText().toString()) >= 7){
+                        Toast.makeText(getApplicationContext(),
+                                "Enter mark between 2 and 6!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }else{
+                        int mark = Integer.valueOf(studentMark.getText().toString());
+                        db.execSQL("UPDATE students SET studentMark = '" + mark + "';");
+                    }
                 }
-                Toast.makeText(StudentsActivity.this, "Successfully entered marks!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, MenuActivity.class);
+                context.startActivity(intent);
             }
         });
 

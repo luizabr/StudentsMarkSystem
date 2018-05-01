@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,8 @@ public class SubjectsActivity extends Activity {
                     subjects.add(subject);
                 }while(cursor.moveToNext());
             }
+        }else{
+            Toast.makeText(this, "No subjects registered!", Toast.LENGTH_SHORT).show();
         }
 
         recyclerView = findViewById(R.id.recycler_view_subjects);

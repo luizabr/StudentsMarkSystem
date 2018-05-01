@@ -48,8 +48,6 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
                 Intent intent = new Intent(context, GroupsActivity.class);
                 intent.putExtra("subjectId", subject.getId());
                 context.startActivity(intent);
-//                Toast.makeText(context, subject.getName(), Toast.LENGTH_SHORT).show();
-
             }
         });
     }

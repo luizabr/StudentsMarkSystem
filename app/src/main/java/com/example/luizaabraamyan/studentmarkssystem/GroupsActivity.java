@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,9 @@ public class GroupsActivity extends Activity {
                     groups.add(group);
                 }while(cursor.moveToNext());
             }
+        }else{
+            Toast.makeText(this,
+                    "No groups registered for this subject!", Toast.LENGTH_SHORT).show();
         }
 
         recyclerView = findViewById(R.id.recycler_view_groups);
@@ -57,6 +61,5 @@ public class GroupsActivity extends Activity {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
-
     }
 }
