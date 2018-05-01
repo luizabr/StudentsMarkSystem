@@ -23,10 +23,12 @@ public class EditMarkActivity extends Activity {
     SQLiteDatabase db;
     DBHelper dbHelper;
     Context context;
+
     int newMark;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_mark);
 
@@ -47,13 +49,17 @@ public class EditMarkActivity extends Activity {
                         "WHERE students.studentFacNum = '" + facNum + "';", null);
                 if(cursor != null){
                     if(cursor.moveToFirst()) {
-                        stName.setText(cursor.getString(cursor.getColumnIndex("studentName")));
-                        stMark.setText(cursor.getString(cursor.getColumnIndex("studentMark")));
+                        stName.setText(cursor.getString(
+                                cursor.getColumnIndex("studentName")));
+                        stMark.setText(cursor.getString(
+                                cursor.getColumnIndex("studentMark")));
                     }else {
-                        Toast.makeText(context, "No student with this faculty number !", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context,
+                                "No student with this faculty number !", Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    Toast.makeText(context, "No student with this faculty number !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,
+                            "No student with this faculty number !", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -79,7 +85,5 @@ public class EditMarkActivity extends Activity {
                 }
             }
         });
-
-
     }
 }

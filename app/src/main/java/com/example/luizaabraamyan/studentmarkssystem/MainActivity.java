@@ -24,6 +24,7 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -37,15 +38,20 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if(idUniversityNum.getText().length() == 0) {
-                    Toast.makeText(context, "Empty identification number field!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,
+                            "Empty identification number field!", Toast.LENGTH_SHORT).show();
                     return;
                 } else if(idUniversityNum.getText().length() != 5) {
-                    Toast.makeText(context, "Wrong identification number!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,
+                            "Wrong identification number!", Toast.LENGTH_SHORT).show();
                 } else if(idUniversityNum.getText().length() == 5){
-                    cursor = db.rawQuery("SELECT * FROM teachers " +
-                            "WHERE universityId = '" + idUniversityNum.getText() + "';", null);
+                    cursor = db.rawQuery("SELECT * FROM teachers "
+                            + "WHERE universityId = '"
+                            + idUniversityNum.getText()
+                            + "';", null);
                     if(cursor.getCount() == 0){
-                        Toast.makeText(context, "Not existing identification number !", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context,
+                                "Not existing identification number !", Toast.LENGTH_SHORT).show();
                     }else{
                         Intent intent = new Intent(context, SubjectsActivity.class);
                         intent.putExtra("idUniversityNum", idUniversityNum.getText().toString());
@@ -61,9 +67,5 @@ public class MainActivity extends Activity {
     public void clearText()
     {
         idUniversityNum.setText("");
-    }
-
-    public EditText getIdUniversityNum() {
-        return idUniversityNum;
     }
 }

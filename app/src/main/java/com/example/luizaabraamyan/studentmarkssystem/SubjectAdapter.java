@@ -13,7 +13,6 @@ import java.util.List;
 public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectViewHolder> {
 
     private Context context;
-
     private static List<Subject> data;
 
     public SubjectAdapter(Context context, List<Subject> objects) {
@@ -29,6 +28,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
     }
 
     public class SubjectViewHolder extends RecyclerView.ViewHolder {
+
         public Button name;
 
         public SubjectViewHolder(View view) {

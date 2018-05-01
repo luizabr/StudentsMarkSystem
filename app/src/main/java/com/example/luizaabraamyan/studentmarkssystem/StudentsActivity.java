@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentsActivity extends Activity {
+
     private RecyclerView recyclerView;
     private StudentAdapter adapter;
     SQLiteDatabase db;
@@ -51,10 +52,14 @@ public class StudentsActivity extends Activity {
             if(cursor.moveToFirst()){
                 do{
                     Student student = new Student();
-                    student.setId(cursor.getInt(cursor.getColumnIndex("studentId")));
-                    student.setName(cursor.getString(cursor.getColumnIndex("studentName")));
-                    student.setFacNum(cursor.getString(cursor.getColumnIndex("studentFacNum")));
-                    student.setMark(cursor.getInt(cursor.getColumnIndex("studentMark")));
+                    student.setId(cursor.getInt(
+                            cursor.getColumnIndex("studentId")));
+                    student.setName(cursor.getString(
+                            cursor.getColumnIndex("studentName")));
+                    student.setFacNum(cursor.getString(
+                            cursor.getColumnIndex("studentFacNum")));
+                    student.setMark(cursor.getInt(
+                            cursor.getColumnIndex("studentMark")));
                     students.add(student);
                 }while(cursor.moveToNext());
             }
@@ -96,6 +101,5 @@ public class StudentsActivity extends Activity {
                 context.startActivity(intent);
             }
         });
-
     }
 }

@@ -3,7 +3,6 @@ package com.example.luizaabraamyan.studentmarkssystem;
 public class Subject {
 
     private int id;
-
     private String name;
 
     public int getId() {

@@ -13,7 +13,6 @@ import java.util.List;
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentViewHolder> {
 
     private Context context;
-
     private static List<Student> data;
 
     public StudentAdapter(Context context, List<Student> objects) {
@@ -29,6 +28,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     }
 
     public class StudentViewHolder extends RecyclerView.ViewHolder {
+
         public TextView studentName;
         public TextView facNum;
         public EditText studentMark;
@@ -46,7 +46,6 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         final Student student = data.get(position);
         holder.studentName.setText(student.getName());
         holder.facNum.setText(student.getFacNum());
-//        holder.studentMark.setText(String.valueOf(student.getMark()));
     }
 
     @Override

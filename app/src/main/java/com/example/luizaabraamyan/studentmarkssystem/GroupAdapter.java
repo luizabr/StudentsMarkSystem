@@ -13,7 +13,6 @@ import java.util.List;
 public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHolder>  {
 
     private Context context;
-
     private static List<Group> data;
 
     public GroupAdapter(Context context, List<Group> objects) {
@@ -29,6 +28,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
     }
 
     public class GroupViewHolder extends RecyclerView.ViewHolder {
+
         public Button number;
 
         public GroupViewHolder(View view) {

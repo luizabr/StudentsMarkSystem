@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewAllStudentsActivity extends Activity {
+
     private RecyclerView recyclerView;
     private StudentAdapter adapter;
     SQLiteDatabase db;
@@ -21,6 +22,7 @@ public class ViewAllStudentsActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_students);
 
@@ -31,8 +33,6 @@ public class ViewAllStudentsActivity extends Activity {
         context = this;
 
         Cursor cursor = db.rawQuery("SELECT * FROM students;", null);
-
-        final int cursorSize = cursor.getCount();
 
         if(cursor != null){
             if(cursor.moveToFirst()){

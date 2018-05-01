@@ -3,11 +3,8 @@ package com.example.luizaabraamyan.studentmarkssystem;
 public class Student {
 
     private int id;
-
     private String name;
-
     private String facNum;
-
     private int mark;
 
     public int getId() {
