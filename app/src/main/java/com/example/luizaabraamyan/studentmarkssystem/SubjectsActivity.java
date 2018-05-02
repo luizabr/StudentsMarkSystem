@@ -24,7 +24,7 @@ public class SubjectsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_subjects);
+        setContentView(R.layout.activity_subject);
 
         List<Subject> subjects = new ArrayList<>();
 

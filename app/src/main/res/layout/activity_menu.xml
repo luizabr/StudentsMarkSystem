@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fitsSystemWindows="true"
-    android:background="@drawable/subjects_bg">
+    android:background="@drawable/bg">
 
     <LinearLayout
         android:orientation="vertical"

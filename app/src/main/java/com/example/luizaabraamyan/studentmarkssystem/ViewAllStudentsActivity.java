@@ -24,7 +24,7 @@ public class ViewAllStudentsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_students);
+        setContentView(R.layout.activity_student);
 
         final List<Student> students = new ArrayList<>();
 

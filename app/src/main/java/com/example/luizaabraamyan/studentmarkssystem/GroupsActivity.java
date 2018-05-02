@@ -25,7 +25,7 @@ public class GroupsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_groups);
+        setContentView(R.layout.activity_group);
 
         List<Group> groups = new ArrayList<>();
 
