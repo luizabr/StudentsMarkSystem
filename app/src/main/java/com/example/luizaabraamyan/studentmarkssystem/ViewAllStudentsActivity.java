@@ -15,7 +15,7 @@ import java.util.List;
 public class ViewAllStudentsActivity extends Activity {
 
     private RecyclerView recyclerView;
-    private StudentAdapter adapter;
+    private ViewAllStudentsAdapter adapter;
     SQLiteDatabase db;
     DBHelper dbHelper;
     Context context;
@@ -51,7 +51,7 @@ public class ViewAllStudentsActivity extends Activity {
         }
 
         recyclerView = findViewById(R.id.recycler_view_students);
-        adapter = new StudentAdapter(this, students);
+        adapter = new ViewAllStudentsAdapter(this, students);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);

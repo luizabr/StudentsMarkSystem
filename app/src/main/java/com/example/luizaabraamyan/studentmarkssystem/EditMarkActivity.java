@@ -55,11 +55,11 @@ public class EditMarkActivity extends Activity {
                                 cursor.getColumnIndex("studentMark")));
                     }else {
                         Toast.makeText(context,
-                                "No student with this faculty number !", Toast.LENGTH_SHORT).show();
+                                "Няма студент с такъв факултетен номер !", Toast.LENGTH_SHORT).show();
                     }
                 }else{
                     Toast.makeText(context,
-                            "No student with this faculty number !", Toast.LENGTH_SHORT).show();
+                            "Няма студент с такъв факултетен номер !", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -68,18 +68,19 @@ public class EditMarkActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if(stMark.getText().length() == 0){
-                    Toast.makeText(context, "Enter new grade!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Въведете нова оценка!", Toast.LENGTH_SHORT).show();
                     return;
                 }else if(Integer.valueOf(stMark.getText().toString()) <= 1 ||
                         Integer.valueOf(stMark.getText().toString()) >= 7){
                     Toast.makeText(getApplicationContext(),
-                            "Enter mark between 2 and 6!", Toast.LENGTH_SHORT).show();
+                            "Въведете оценка между 2 и 6!", Toast.LENGTH_SHORT).show();
                     return;
                 }else{
                     newMark = Integer.valueOf(stMark.getText().toString());
-                    db.execSQL("UPDATE students SET studentMark = '" + newMark + "';");
+                    db.execSQL("UPDATE students SET studentMark = '" + newMark
+                             + "' WHERE students.studentFacNum = " + enterFacNum.getText() + ";");
                     Toast.makeText(getApplicationContext(),
-                            "Mark is successfully updated!", Toast.LENGTH_SHORT).show();
+                            "Оценката е успешно променена!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, MenuActivity.class);
                     context.startActivity(intent);
                 }

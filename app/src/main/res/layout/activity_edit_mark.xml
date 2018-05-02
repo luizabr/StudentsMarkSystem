@@ -10,46 +10,57 @@
         android:layout_height="wrap_content"
         android:paddingTop="45dp"
         android:paddingLeft="24dp"
-        android:paddingRight="24dp">
+        android:paddingRight="24dp"
+        android:background="@drawable/subjects_bg">
 
         <EditText
             android:id="@+id/enterFacNum"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:hint="Faculty number"
-            android:textSize="17dp"/>
+            android:hint="Факултетен номер"
+            android:textSize="17dp"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"/>
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/searchBtn"
-            android:background="#00aaa1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
             android:padding="12dp"
-            android:text="Search"/>
+            android:text="Търси"
+            android:textColor="#ffffff"
+            android:background="@drawable/buttonshape"/>
 
         <TextView
             android:id="@+id/stNameLbl"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:textSize="17dp"/>
+            android:textSize="21dp"
+            android:layout_gravity="center"
+            android:textColor="#ffffff"/>
 
         <EditText
             android:id="@+id/stMark"
-            android:layout_width="200dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:textSize="17dp"/>
+            android:textSize="21dp"
+            android:textAlignment="center"
+            android:textColor="#ffffff"/>
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/saveChangesBtn"
-            android:background="#00aaa1"
+            android:background="@drawable/buttonshape"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
             android:padding="12dp"
-            android:text="Save changes"/>
+            android:text="Запази промените"
+            android:textColor="#ffffff"/>
     </LinearLayout>
 </ScrollView>

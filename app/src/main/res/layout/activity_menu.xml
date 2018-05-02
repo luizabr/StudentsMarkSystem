@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:background="@drawable/subjects_bg">
 
     <LinearLayout
         android:orientation="vertical"
@@ -17,45 +18,42 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:text="You've successfully submitted student's marks!"
-            android:textSize="17dp"/>
+            android:text="Успешно записахте въведените оценки!"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:textSize="21dp"/>
 
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/editMarkBtn"
-            android:background="#00aaa1"
+            android:background="@drawable/buttonshape"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
             android:padding="12dp"
-            android:text="Edit a mark"/>
+            android:text="Промени оценка"
+            android:textColor="#ffffff" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/viewStudentsBtn"
-            android:background="#00aaa1"
+            android:background="@drawable/buttonshape"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
             android:padding="12dp"
-            android:text="View all students"/>
-
-            <android.support.v7.widget.AppCompatButton
-            android:id="@+id/loadSubjectsBtn"
-            android:background="#00aaa1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:padding="12dp"
-            android:text="Go to subjects"/>
+            android:text="Покажи всички студенти"
+            android:textColor="#ffffff"/>
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/logoutBtn"
-            android:background="#00aaa1"
+            android:background="@drawable/buttonshape"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
             android:padding="12dp"
-            android:text="Log out"/>
+            android:text="Изход"
+            android:textColor="#ffffff"/>
 
     </LinearLayout>
 </ScrollView>

@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class StudentsActivity extends Activity {
     DBHelper dbHelper;
     int groupId;
     Button save;
+    TextView facNum;
     Context context;
 
     @Override
@@ -41,6 +43,7 @@ public class StudentsActivity extends Activity {
         Bundle bundle = intent.getExtras();
         groupId = bundle.getInt("groupId");
         save = findViewById(R.id.saveBtn);
+
 
         Cursor cursor = db.rawQuery("SELECT * FROM students " +
                 "JOIN groups ON (groups.groupId = students.groupId)"
@@ -65,7 +68,7 @@ public class StudentsActivity extends Activity {
             }
         }else{
             Toast.makeText(this,
-                    "No students registered in the group!", Toast.LENGTH_SHORT).show();
+                    "Няма регистрирани студенти в тази група!", Toast.LENGTH_SHORT).show();
         }
 
         recyclerView = findViewById(R.id.recycler_view_students);
@@ -82,19 +85,21 @@ public class StudentsActivity extends Activity {
                 for(int i = 0; i < cursorSize; i++){
                     View view = recyclerView.getChildAt(i);
                     EditText studentMark = view.findViewById(R.id.studentMark);
+                    facNum = view.findViewById(R.id.facNum);
 
                     if(studentMark.getText().length() == 0){
                         Toast.makeText(getApplicationContext(),
-                                "All marks should be filled before saving!", Toast.LENGTH_SHORT).show();
+                                "Всички оценки трябва да са попълнени!", Toast.LENGTH_SHORT).show();
                         return;
                     }else if(Integer.valueOf(studentMark.getText().toString()) <= 1 ||
                              Integer.valueOf(studentMark.getText().toString()) >= 7){
                         Toast.makeText(getApplicationContext(),
-                                "Enter mark between 2 and 6!", Toast.LENGTH_SHORT).show();
+                                "Въведете оценка от 2 до 6!", Toast.LENGTH_SHORT).show();
                         return;
                     }else{
                         int mark = Integer.valueOf(studentMark.getText().toString());
-                        db.execSQL("UPDATE students SET studentMark = '" + mark + "';");
+                        db.execSQL("UPDATE students SET studentMark = " +
+                                "'" + mark + "' WHERE students.studentFacNum = " + facNum.getText() + ";");
                     }
                 }
                 Intent intent = new Intent(context, MenuActivity.class);

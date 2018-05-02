@@ -52,7 +52,7 @@ public class GroupsActivity extends Activity {
             }
         }else{
             Toast.makeText(this,
-                    "No groups registered for this subject!", Toast.LENGTH_SHORT).show();
+                    "Няма регистрирани групи за този предмет!", Toast.LENGTH_SHORT).show();
         }
 
         recyclerView = findViewById(R.id.recycler_view_groups);

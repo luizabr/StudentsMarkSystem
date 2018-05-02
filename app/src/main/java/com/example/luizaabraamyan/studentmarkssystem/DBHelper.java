@@ -105,10 +105,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private void initSubjects(SQLiteDatabase db){
         db.execSQL("INSERT INTO " + SUBJECTS_TABLE
-                + " VALUES (1, 'Maths / Course 1'), (2, 'English / Course 2'), "
-                + "(3, 'Information Systems / Course 3'), "
-                + "(4, 'Network secutiry / Course 3'), "
-                + "(5, 'Object oriented programming / Course 3');");
+                + " VALUES (1, 'Математика / Курс 1'), (2, 'Английски език / Курс 2'), "
+                + "(3, 'Информационни системи / Курс 3'), "
+                + "(4, 'Мрежова сигурност / Курс 3'), "
+                + "(5, 'ООП / Курс 3');");
     }
 
     private void initGroups(SQLiteDatabase db){
@@ -118,16 +118,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private void initStudents(SQLiteDatabase db){
         db.execSQL("INSERT INTO " + STUDENTS_TABLE
-                + " VALUES (1, 'Trayan Muchev', '501214001', NULL, 1), "
-                + "(2, 'Hristiyan Stoyanov', '501214002', NULL, 1), "
-                + "(3, 'Borislav Borisov', '501214003', NULL, 2), "
-                + "(4, 'Kamen Todorov', '501214004', NULL, 2), "
-                + "(5, 'Antonina Petrova', '501214005', NULL, 3), "
-                + "(6, 'Krasimira Dimova', '501214006', NULL, 3), "
-                + "(7, 'Mariya Ivanova', '501214007', NULL, 4), "
-                + "(8, 'Luiza Abraamyan', '501214008', NULL, 4), "
-                + "(9, 'Maya Petrova', '501214009', NULL, 5), "
-                + "(10, 'Elena Georgieva', '501214010', NULL, 5);");
+                + " VALUES (1, 'Траян Мучев', '501214001', NULL, 1), "
+                + "(2, 'Християн Стоянов', '501214002', NULL, 1), "
+                + "(3, 'Борислав Борисов', '501214003', NULL, 2), "
+                + "(4, 'Камен Тодоров', '501214004', NULL, 2), "
+                + "(5, 'Антонина Петрова', '501214005', NULL, 3), "
+                + "(6, 'Красимира Димова', '501214006', NULL, 3), "
+                + "(7, 'Мария Иванова', '501214007', NULL, 4), "
+                + "(8, 'Луиза Абраамян', '501214008', NULL, 4), "
+                + "(9, 'Мая Петрова', '501214009', NULL, 5), "
+                + "(10, 'Елена Георгиева', '501214010', NULL, 5);");
     }
 
     private void initTeachersSubjectsGroups(SQLiteDatabase db){

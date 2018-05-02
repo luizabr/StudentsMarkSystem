@@ -39,11 +39,11 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 if(idUniversityNum.getText().length() == 0) {
                     Toast.makeText(context,
-                            "Empty identification number field!", Toast.LENGTH_SHORT).show();
+                            "Полето е празно!", Toast.LENGTH_SHORT).show();
                     return;
                 } else if(idUniversityNum.getText().length() != 5) {
                     Toast.makeText(context,
-                            "Wrong identification number!", Toast.LENGTH_SHORT).show();
+                            "Грешен идентификационен номер!", Toast.LENGTH_SHORT).show();
                 } else if(idUniversityNum.getText().length() == 5){
                     cursor = db.rawQuery("SELECT * FROM teachers "
                             + "WHERE universityId = '"
@@ -51,7 +51,7 @@ public class MainActivity extends Activity {
                             + "';", null);
                     if(cursor.getCount() == 0){
                         Toast.makeText(context,
-                                "Not existing identification number !", Toast.LENGTH_SHORT).show();
+                                "Несъществуващ идентификационен номер!", Toast.LENGTH_SHORT).show();
                     }else{
                         Intent intent = new Intent(context, SubjectsActivity.class);
                         intent.putExtra("idUniversityNum", idUniversityNum.getText().toString());
