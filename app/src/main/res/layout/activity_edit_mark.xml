@@ -11,7 +11,7 @@
         android:paddingTop="45dp"
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
-        android:background="@drawable/bg">
+        android:background="@drawable/background">
 
         <EditText
             android:id="@+id/enterFacNum"
