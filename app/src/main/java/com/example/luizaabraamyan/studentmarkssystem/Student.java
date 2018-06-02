@@ -6,6 +6,9 @@ public class Student {
     private String name;
     private String facNum;
     private int mark;
+    private int isEndorsed;
+    private String note;
+    private int isPresent;
 
     public int getId() {
         return id;
@@ -37,5 +40,29 @@ public class Student {
 
     public void setMark(int mark) {
         this.mark = mark;
+    }
+
+    public int getIsEndorsed() {
+        return isEndorsed;
+    }
+
+    public void setIsEndorsed(int isEndorsed) {
+        this.isEndorsed = isEndorsed;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public int getIsPresent() {
+        return isPresent;
+    }
+
+    public void setIsPresent(int isPresent) {
+        this.isPresent = isPresent;
     }
 }

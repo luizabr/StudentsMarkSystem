@@ -17,10 +17,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentsActivity extends Activity {
+public class MarksActivity extends Activity {
 
     private RecyclerView recyclerView;
-    private StudentAdapter adapter;
+    private MarkAdapter adapter;
     SQLiteDatabase db;
     DBHelper dbHelper;
     int groupId;
@@ -72,7 +72,7 @@ public class StudentsActivity extends Activity {
         }
 
         recyclerView = findViewById(R.id.recycler_view_students);
-        adapter = new StudentAdapter(this, students);
+        adapter = new MarkAdapter(this, students);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -103,6 +103,7 @@ public class StudentsActivity extends Activity {
                     }
                 }
                 Intent intent = new Intent(context, MenuActivity.class);
+                intent.putExtra("groupId", groupId);
                 context.startActivity(intent);
             }
         });

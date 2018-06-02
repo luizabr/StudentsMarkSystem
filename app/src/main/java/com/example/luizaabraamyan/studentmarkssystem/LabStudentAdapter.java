@@ -10,12 +10,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentViewHolder> {
+public class LabStudentAdapter extends RecyclerView.Adapter<LabStudentAdapter.StudentViewHolder> {
 
     private Context context;
     private static List<Student> data;
 
-    public StudentAdapter(Context context, List<Student> objects) {
+    public LabStudentAdapter(Context context, List<Student> objects) {
         this.context = context;
         data = objects;
     }
@@ -42,7 +42,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     }
 
     @Override
-    public void onBindViewHolder(final StudentAdapter.StudentViewHolder holder, final int position) {
+    public void onBindViewHolder(final LabStudentAdapter.StudentViewHolder holder, final int position) {
         final Student student = data.get(position);
         holder.studentName.setText(student.getName());
         holder.facNum.setText(student.getFacNum());

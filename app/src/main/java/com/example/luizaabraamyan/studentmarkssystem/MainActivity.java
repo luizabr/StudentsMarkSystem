@@ -56,7 +56,6 @@ public class MainActivity extends Activity {
                         Intent intent = new Intent(context, SubjectsActivity.class);
                         intent.putExtra("idUniversityNum", idUniversityNum.getText().toString());
                         context.startActivity(intent);
-
                     }
                 }
                 clearText();

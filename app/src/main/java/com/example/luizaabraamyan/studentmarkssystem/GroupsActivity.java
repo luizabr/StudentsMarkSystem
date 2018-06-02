@@ -18,7 +18,8 @@ public class GroupsActivity extends Activity {
     private GroupAdapter adapter;
     SQLiteDatabase db;
     DBHelper dbHelper;
-    String groupNumber;
+    //Why is this here
+//    String groupNumber;
     int subjectId;
 
     @Override

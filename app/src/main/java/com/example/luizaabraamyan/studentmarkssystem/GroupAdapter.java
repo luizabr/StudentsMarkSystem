@@ -45,9 +45,12 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
         holder.number.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, StudentsActivity.class);
+                Intent intent = new Intent(context, MenuActivity.class);
                 intent.putExtra("groupId", group.getId());
                 context.startActivity(intent);
+//                Intent intent = new Intent(context, MarksActivity.class);
+//                intent.putExtra("groupId", group.getId());
+//                context.startActivity(intent);
             }
         });
     }

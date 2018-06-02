@@ -18,10 +18,11 @@
         </activity>
         <activity android:name=".SubjectsActivity"></activity>
         <activity android:name=".GroupsActivity"></activity>
-        <activity android:name=".StudentsActivity"></activity>
+        <activity android:name=".MarksActivity"></activity>
         <activity android:name=".EditMarkActivity"></activity>
         <activity android:name=".MenuActivity"></activity>
         <activity android:name=".ViewAllStudentsActivity"></activity>
+        <activity android:name=".EndorsementsActivity"></activity>
 
     </application>
 

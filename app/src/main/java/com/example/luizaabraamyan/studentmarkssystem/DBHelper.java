@@ -18,7 +18,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String STUDENTS_TABLE = "students";
     private static final String LABS_TABLE = "labs";
     private static final String TEACHERS_SUBJECTS_GROUPS_TABLE = "teachers_subjects_groups";
-    private static final String STUDENTS_LABS_TABLE = "teachers_subjects_groups";
+    private static final String STUDENTS_LABS_TABLE = "students_labs_table";
 
 
     private static final String TEACHER_ID = "teacherId";
@@ -34,9 +34,11 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String STUDENT_NAME = "studentName";
     private static final String STUDENT_FAC_NUM = "studentFacNum";
     private static final String STUDENT_MARK = "studentMark";
-    private static final String IS_ENDORSED = "isEndorsed";
+    private static final String IS_STUDENT_ENDORSED = "isStudentEndorsed";
+    private static final String STUDENT_NOTE = "studentNote";
 
     private static final String LAB_ID = "labId";
+    private static final String LAB_PRETTY_NAME = "prettyName";
     private static final String IS_PRESENT = "isPresent";
 
     private static final String CREATE_TEACHERS_TABLE = "CREATE TABLE "
@@ -52,14 +54,15 @@ public class DBHelper extends SQLiteOpenHelper {
             + " INTEGER" + ");";
 
     private static final String CREATE_STUDENTS_TABLE = "CREATE TABLE "
-            + STUDENTS_TABLE + "(" + STUDENT_ID + " INTEGER PRIMARY KEY, " + STUDENT_NAME
-            + " TEXT, " + STUDENT_FAC_NUM + " TEXT, " + STUDENT_MARK
-            + " INTEGER, " + IS_ENDORSED + " INTEGER, " + GROUP_ID + " INTEGER,"
+            + STUDENTS_TABLE + "(" + STUDENT_ID + " INTEGER PRIMARY KEY, "
+            + STUDENT_NAME + " TEXT, " + STUDENT_FAC_NUM + " TEXT, "
+            + STUDENT_MARK + " INTEGER, " + GROUP_ID + " INTEGER,"
+            + IS_STUDENT_ENDORSED + " INTEGER, " + STUDENT_NOTE + " TEXT, "
             + " FOREIGN KEY(" + GROUP_ID + ") REFERENCES " + GROUPS_TABLE + "(" + GROUP_ID + "));";
 
     private static final String CREATE_LABS_TABLE = "CREATE TABLE "
-            + LABS_TABLE + "(" + LAB_ID + " INTEGER PRIMARY KEY, " + IS_PRESENT
-            + " INTEGER" + ");";
+            + LABS_TABLE + "(" + LAB_ID + " INTEGER PRIMARY KEY, " + LAB_PRETTY_NAME + " TEXT, "
+            + IS_PRESENT + " INTEGER" + ");";
 
     private static final String CREATE_TEACHERS_SUBJECTS_GROUPS_TABLE = "CREATE TABLE "
             + TEACHERS_SUBJECTS_GROUPS_TABLE
@@ -138,27 +141,27 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private void initStudents(SQLiteDatabase db){
         db.execSQL("INSERT INTO " + STUDENTS_TABLE
-                + " VALUES (1, 'Траян Мучев', '501214001', NULL, 1, 0), "
-                + "(2, 'Християн Стоянов', '501214002', NULL, 1, 0), "
-                + "(3, 'Борислав Борисов', '501214003', NULL, 2, 0), "
-                + "(4, 'Камен Тодоров', '501214004', NULL, 2, 0), "
-                + "(5, 'Антонина Петрова', '501214005', NULL, 3, 0), "
-                + "(6, 'Красимира Димова', '501214006', NULL, 3, 0), "
-                + "(7, 'Мария Иванова', '501214007', NULL, 4, 0), "
-                + "(8, 'Луиза Абраамян', '501214008', NULL, 4, 0), "
-                + "(9, 'Мая Петрова', '501214009', NULL, 5, 0), "
-                + "(10, 'Елена Георгиева', '501214010', NULL, 5, 0);");
+                + " VALUES (1, 'Траян Мучев', '501214001', NULL, 1, 0, NULL), "
+                + "(2, 'Християн Стоянов', '501214002', NULL, 1, 0, NULL), "
+                + "(3, 'Борислав Борисов', '501214003', NULL, 2, 0, NULL), "
+                + "(4, 'Камен Тодоров', '501214004', NULL, 2, 0, NULL), "
+                + "(5, 'Антонина Петрова', '501214005', NULL, 3, 0, NULL), "
+                + "(6, 'Красимира Димова', '501214006', NULL, 3, 0, NULL), "
+                + "(7, 'Мария Иванова', '501214007', NULL, 4, 0, NULL), "
+                + "(8, 'Луиза Абраамян', '501214008', NULL, 4, 0, NULL), "
+                + "(9, 'Мая Петрова', '501214009', NULL, 5, 0, NULL), "
+                + "(10, 'Елена Георгиева', '501214010', NULL, 5, 0, NULL);");
     }
 
     private void initLabs(SQLiteDatabase db){
         db.execSQL("INSERT INTO " + LABS_TABLE
-                + " VALUES (1, 0), "
-                + "(2, 0), "
-                + "(3, 0), "
-                + "(4, 0), "
-                + "(5, 0), "
-                + "(6, 0), "
-                + "(7, 0);");
+                + " VALUES (1, 'Упражнение 1', 0), "
+                + "(2, 'Упражнение 2',  0), "
+                + "(3, 'Упражнение 3',  0), "
+                + "(4, 'Упражнение 4',  0), "
+                + "(5, 'Упражнение 5',  0), "
+                + "(6, 'Упражнение 6',  0), "
+                + "(7, 'Упражнение 7',  0);");
     }
 
     private void initTeachersSubjectsGroups(SQLiteDatabase db){
