@@ -23,6 +23,10 @@
         <activity android:name=".MenuActivity"></activity>
         <activity android:name=".ViewAllStudentsActivity"></activity>
         <activity android:name=".EndorsementsActivity"></activity>
+        <activity android:name=".LabsActivity"></activity>
+        <activity android:name=".LabStudentActivity"></activity>
+        <activity android:name=".ViewAllScholarsActivity"></activity>
+
 
     </application>
 

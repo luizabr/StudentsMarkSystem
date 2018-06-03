@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
@@ -37,6 +38,12 @@ public class GroupsActivity extends Activity {
         Bundle bundle = intent.getExtras();
         subjectId = bundle.getInt("subjectId");
 
+        //test
+//        Intent intent1 = new Intent("subjectIntent");
+//        intent1.putExtra("subjectId", subjectId);
+//        LocalBroadcastManager.getInstance(GroupsActivity.this).sendBroadcast(intent1);
+        //
+
         Cursor cursor = db.rawQuery("SELECT * FROM groups " +
                 "JOIN teachers_subjects_groups ON (teachers_subjects_groups.groupId = groups.groupId)"
                 + " JOIN subjects ON (teachers_subjects_groups.subjectId = subjects.subjectId)"
@@ -57,7 +64,7 @@ public class GroupsActivity extends Activity {
         }
 
         recyclerView = findViewById(R.id.recycler_view_groups);
-        adapter = new GroupAdapter(this, groups);
+        adapter = new GroupAdapter(this, groups, subjectId);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);

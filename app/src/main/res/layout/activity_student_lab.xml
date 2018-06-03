@@ -7,7 +7,7 @@
         android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view_student_lab01"
+            android:id="@+id/recycler_view_student_lab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -20,7 +20,7 @@
             android:id="@+id/checkAllBtn"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/recycler_view_student_lab01"
+            android:layout_below="@id/recycler_view_student_lab"
             android:layout_marginLeft="37dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/buttoncolored"
@@ -35,7 +35,7 @@
             android:textSize="17dp" />
 
         <Button
-            android:id="@+id/saveBtn"
+            android:id="@+id/saveCheckedBtn"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/checkAllBtn"
@@ -56,7 +56,7 @@
             android:id="@+id/homeBtn"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/saveBtn"
+            android:layout_below="@+id/saveCheckedBtn"
             android:layout_marginLeft="37dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/buttoncolored"

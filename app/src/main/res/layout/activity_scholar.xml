@@ -1,0 +1,34 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_students"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:clipToPadding="false"
+        android:descendantFocusability="beforeDescendants"
+        android:paddingBottom="20dp"
+        android:scrollbars="vertical" />
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recycler_view_students"
+        android:id="@+id/homeBtn"
+        android:text="Начало"
+        android:layout_marginTop="45dp"
+        android:layout_marginBottom="25dp"
+        android:layout_margin="45dp"
+        android:padding="17dp"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="17dp"
+        android:background="@drawable/buttoncolored"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"/>
+
+</RelativeLayout>

@@ -2,6 +2,7 @@ package com.example.luizaabraamyan.studentmarkssystem;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +15,12 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
 
     private Context context;
     private static List<Group> data;
+    int subjectId;
 
-    public GroupAdapter(Context context, List<Group> objects) {
+    public GroupAdapter(Context context, List<Group> objects, int subjectId) {
         this.context = context;
         data = objects;
+        this.subjectId = subjectId;
     }
 
     @Override
@@ -47,6 +50,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
             public void onClick(View v) {
                 Intent intent = new Intent(context, MenuActivity.class);
                 intent.putExtra("groupId", group.getId());
+                intent.putExtra("subjectId", subjectId);
                 context.startActivity(intent);
 //                Intent intent = new Intent(context, MarksActivity.class);
 //                intent.putExtra("groupId", group.getId());

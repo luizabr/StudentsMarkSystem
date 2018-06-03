@@ -40,7 +40,8 @@ public class SubjectsActivity extends Activity {
                 + " JOIN teachers ON (teachers_subjects_groups.teacherId = teachers.teacherId)"
                 + " WHERE teachers.universityId = '" + idUniversityNum + "';", null);
 
-        if(cursor != null){
+        int cursorSize = cursor.getCount();
+        if(cursorSize != 0){
             if(cursor.moveToFirst()){
                 do{
                     Subject subject = new Subject();
@@ -50,7 +51,7 @@ public class SubjectsActivity extends Activity {
                 }while(cursor.moveToNext());
             }
         }else{
-            Toast.makeText(this, "No subjects registered!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Няма регистрирани предмети!", Toast.LENGTH_SHORT).show();
         }
 
         recyclerView = findViewById(R.id.recycler_view_subjects);

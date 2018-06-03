@@ -1,86 +1,120 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:fitsSystemWindows="true"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/background">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_labs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="45dp"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp">
+        android:layout_gravity="center_horizontal"
+        android:clipToPadding="false"
+        android:descendantFocusability="blocksDescendants"
+        android:paddingBottom="20dp"
+        android:scrollbars="vertical" />
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/lab01Btn"
-            android:background="@drawable/buttonshape"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:text="Упражнение 1"
-            android:textColor="#ffffff" />
+</RelativeLayout>
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/lab02Btn"
-            android:background="@drawable/buttonshape"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:padding="12dp"
-            android:text="Упражнение 2"
-            android:textColor="#ffffff" />
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/lab03Btn"
-            android:background="@drawable/buttonshape"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:padding="12dp"
-            android:text="Упражнение 3"
-            android:textColor="#ffffff" />
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/lab04Btn"
-            android:background="@drawable/buttonshape"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:padding="12dp"
-            android:text="Упражнение 4"
-            android:textColor="#ffffff" />
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/lab05Btn"
-            android:background="@drawable/buttonshape"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:padding="12dp"
-            android:text="Упражнение 5"
-            android:textColor="#ffffff"/>
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/lab06Btn"
-            android:background="@drawable/buttonshape"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:padding="12dp"
-            android:text="Упражнение 6"
-            android:textColor="#ffffff"/>
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/lab07Btn"
-            android:background="@drawable/buttonshape"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:padding="12dp"
-            android:text="Упражнение 7"
-            android:textColor="#ffffff"/>
 
-    </LinearLayout>
-</ScrollView>
+
+
+
+
+
+
+
+
+
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="fill_parent"-->
+    <!--android:fitsSystemWindows="true"-->
+    <!--android:background="@drawable/background">-->
+
+    <!--<LinearLayout-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:paddingTop="45dp"-->
+        <!--android:paddingLeft="24dp"-->
+        <!--android:paddingRight="24dp">-->
+
+        <!--<android.support.v7.widget.AppCompatButton-->
+            <!--android:id="@+id/lab01Btn"-->
+            <!--android:background="@drawable/buttonshape"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="12dp"-->
+            <!--android:text="Упражнение 1"-->
+            <!--android:textColor="#ffffff" />-->
+
+        <!--<android.support.v7.widget.AppCompatButton-->
+            <!--android:id="@+id/lab02Btn"-->
+            <!--android:background="@drawable/buttonshape"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:padding="12dp"-->
+            <!--android:text="Упражнение 2"-->
+            <!--android:textColor="#ffffff" />-->
+
+        <!--<android.support.v7.widget.AppCompatButton-->
+            <!--android:id="@+id/lab03Btn"-->
+            <!--android:background="@drawable/buttonshape"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:padding="12dp"-->
+            <!--android:text="Упражнение 3"-->
+            <!--android:textColor="#ffffff" />-->
+
+        <!--<android.support.v7.widget.AppCompatButton-->
+            <!--android:id="@+id/lab04Btn"-->
+            <!--android:background="@drawable/buttonshape"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:padding="12dp"-->
+            <!--android:text="Упражнение 4"-->
+            <!--android:textColor="#ffffff" />-->
+
+        <!--<android.support.v7.widget.AppCompatButton-->
+            <!--android:id="@+id/lab05Btn"-->
+            <!--android:background="@drawable/buttonshape"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:padding="12dp"-->
+            <!--android:text="Упражнение 5"-->
+            <!--android:textColor="#ffffff"/>-->
+
+        <!--<android.support.v7.widget.AppCompatButton-->
+            <!--android:id="@+id/lab06Btn"-->
+            <!--android:background="@drawable/buttonshape"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:padding="12dp"-->
+            <!--android:text="Упражнение 6"-->
+            <!--android:textColor="#ffffff"/>-->
+
+        <!--<android.support.v7.widget.AppCompatButton-->
+            <!--android:id="@+id/lab07Btn"-->
+            <!--android:background="@drawable/buttonshape"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:padding="12dp"-->
+            <!--android:text="Упражнение 7"-->
+            <!--android:textColor="#ffffff"/>-->
+
+    <!--</LinearLayout>-->
+<!--</ScrollView>-->

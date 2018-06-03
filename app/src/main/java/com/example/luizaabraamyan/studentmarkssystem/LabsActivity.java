@@ -19,13 +19,14 @@ public class LabsActivity extends Activity {
     SQLiteDatabase db;
     DBHelper dbHelper;
     int groupId;
+    int subjectId;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_lab);
+        setContentView(R.layout.activity_labs);
 
         List<Lab> labs = new ArrayList<>();
 
@@ -35,12 +36,10 @@ public class LabsActivity extends Activity {
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         groupId = bundle.getInt("groupId");
+        subjectId = bundle.getInt("subjectId");
 
-        Cursor cursor = db.rawQuery("SELECT * FROM labs " +
-                "JOIN students_labs_table ON (students_labs_table.labId = labs.labId)"
-                + " JOIN students ON (students_labs_table.studentId = students.studentId)"
-                + " JOIN groups ON (students.groupId = groups.groupId)"
-                + " WHERE groups.groupId = '" + groupId + "';", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM labs "
+                + " WHERE labs.subjectID = '" + subjectId + "';", null);
 
         int cursorSize = cursor.getCount();
         if (cursorSize != 0) {
@@ -58,7 +57,7 @@ public class LabsActivity extends Activity {
                     "Няма регистрирани упражнения!", Toast.LENGTH_SHORT).show();
         }
 
-        recyclerView = findViewById(R.id.recycler_view_groups);
+        recyclerView = findViewById(R.id.recycler_view_labs);
         adapter = new LabAdapter(this, labs);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);

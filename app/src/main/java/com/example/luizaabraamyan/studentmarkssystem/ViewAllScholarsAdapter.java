@@ -5,19 +5,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.List;
 
-public class LabStudentAdapter extends RecyclerView.Adapter<LabStudentAdapter.StudentViewHolder> {
+public class ViewAllScholarsAdapter extends RecyclerView.Adapter<ViewAllScholarsAdapter.StudentViewHolder> {
 
     private Context context;
     private static List<Student> data;
-    private boolean isChecked = false;
 
-    public LabStudentAdapter(Context context, List<Student> objects) {
+    public ViewAllScholarsAdapter(Context context, List<Student> objects) {
         this.context = context;
         data = objects;
     }
@@ -25,7 +23,7 @@ public class LabStudentAdapter extends RecyclerView.Adapter<LabStudentAdapter.St
     @Override
     public StudentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_student_lab, parent, false);
+                .inflate(R.layout.item_student, parent, false);
         return new StudentViewHolder(itemView);
     }
 
@@ -33,22 +31,22 @@ public class LabStudentAdapter extends RecyclerView.Adapter<LabStudentAdapter.St
 
         public TextView studentName;
         public TextView facNum;
-        public CheckBox isPresent;
-
+        public EditText studentMark;
 
         public StudentViewHolder(View view) {
             super(view);
             studentName = view.findViewById(R.id.studentName);
             facNum = view.findViewById(R.id.facNum);
-            isPresent = view.findViewById(R.id.isPresentBox);
+            studentMark = view.findViewById(R.id.studentMark);
         }
     }
 
     @Override
-    public void onBindViewHolder(final LabStudentAdapter.StudentViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewAllScholarsAdapter.StudentViewHolder holder, final int position) {
         final Student student = data.get(position);
         holder.studentName.setText(student.getName());
         holder.facNum.setText(student.getFacNum());
+        holder.studentMark.setText(String.valueOf(student.getMark()));
     }
 
     @Override

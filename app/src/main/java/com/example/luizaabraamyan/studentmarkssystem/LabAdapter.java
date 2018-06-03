@@ -40,7 +40,7 @@ public class LabAdapter extends RecyclerView.Adapter<LabAdapter.LabViewHolder>  
     @Override
     public void onBindViewHolder(final LabViewHolder holder, final int position) {
         final Lab lab = data.get(position);
-        holder.labPrettyName.setText(String.valueOf(lab.getPrettyName()));
+        holder.labPrettyName.setText(lab.getPrettyName());
 
         holder.labPrettyName.setOnClickListener(new View.OnClickListener() {
             @Override

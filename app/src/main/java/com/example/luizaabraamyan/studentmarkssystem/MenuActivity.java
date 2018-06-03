@@ -1,10 +1,13 @@
 package com.example.luizaabraamyan.studentmarkssystem;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,10 +27,18 @@ public class MenuActivity extends Activity {
     DBHelper dbHelper;
     Context context;
 
+//    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            subjectId = intent.getExtras().getInt("subjectId");
+//        }
+//    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+//        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver, new IntentFilter("subjectIntent"));
         setContentView(R.layout.activity_menu);
 
         addMark = findViewById(R.id.addMarkBtn);
@@ -45,6 +56,7 @@ public class MenuActivity extends Activity {
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         final int groupId = bundle.getInt("groupId");
+        final int subjectId = bundle.getInt("subjectId");
 
         addMark.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +81,7 @@ public class MenuActivity extends Activity {
             public void onClick(View v) {
                Intent intent = new Intent(context, LabsActivity.class);
                intent.putExtra("groupId", groupId);
+               intent.putExtra("subjectId", subjectId);
                context.startActivity(intent);
             }
         });
@@ -78,6 +91,7 @@ public class MenuActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, EditMarkActivity.class);
+                intent.putExtra("groupId", groupId);
                 context.startActivity(intent);
             }
         });
@@ -85,16 +99,18 @@ public class MenuActivity extends Activity {
         viewAllStudents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                    Intent intent = new Intent(context, ViewAllStudentsActivity.class);
-                    context.startActivity(intent);
+                Intent intent = new Intent(context, ViewAllStudentsActivity.class);
+                intent.putExtra("groupId", groupId);
+                context.startActivity(intent);
             }
         });
 
         viewAllScholars.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-//                Intent intent = new Intent(context, ViewAllStudentsActivity.class);
-//                context.startActivity(intent);
+                Intent intent = new Intent(context, ViewAllScholarsActivity.class);
+                intent.putExtra("groupId", groupId);
+                context.startActivity(intent);
             }
         });
 
@@ -102,6 +118,7 @@ public class MenuActivity extends Activity {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(context, MainActivity.class);
+                intent.putExtra("groupId", groupId);
                 context.startActivity(intent);
             }
         });
