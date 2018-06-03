@@ -19,12 +19,15 @@ public class EditMarkActivity extends Activity {
     TextView stName;
     EditText stMark;
     Button saveChanges;
+    Button home;
 
     SQLiteDatabase db;
     DBHelper dbHelper;
     Context context;
 
     int newMark;
+
+    int groupId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +40,14 @@ public class EditMarkActivity extends Activity {
         stName = findViewById(R.id.stNameLbl);
         stMark = findViewById(R.id.stMark);
         saveChanges = findViewById(R.id.saveChangesBtn);
+        home = findViewById(R.id.homeBtn);
         context = this;
         dbHelper = new DBHelper(getApplicationContext());
         db = dbHelper.getWritableDatabase();
+
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+        groupId = bundle.getInt("groupId");
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +92,16 @@ public class EditMarkActivity extends Activity {
                     Intent intent = new Intent(context, MenuActivity.class);
                     context.startActivity(intent);
                 }
+            }
+        });
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, MenuActivity.class);
+                intent.putExtra("groupId", groupId);
+//                intent.putExtra("bundle", bundle);
+                context.startActivity(intent);
             }
         });
     }
