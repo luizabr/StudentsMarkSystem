@@ -8,7 +8,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     protected SQLiteDatabase db = null;
 
-    private static  final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 1;
 
     private static final String DATABASE_NAME = "UniversityDB.db";
 
@@ -39,6 +39,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private static final String LAB_ID = "labId";
     private static final String LAB_PRETTY_NAME = "prettyName";
+
     private static final String IS_PRESENT = "isPresent";
 
     private static final String CREATE_TEACHERS_TABLE = "CREATE TABLE "
@@ -60,9 +61,11 @@ public class DBHelper extends SQLiteOpenHelper {
             + IS_STUDENT_ENDORSED + " INTEGER, " + STUDENT_NOTE + " TEXT, "
             + " FOREIGN KEY(" + GROUP_ID + ") REFERENCES " + GROUPS_TABLE + "(" + GROUP_ID + "));";
 
+    //Added subject id. Relation subject - lab -> 1 - M. Removed isPresent.
     private static final String CREATE_LABS_TABLE = "CREATE TABLE "
             + LABS_TABLE + "(" + LAB_ID + " INTEGER PRIMARY KEY, " + LAB_PRETTY_NAME + " TEXT, "
-            + IS_PRESENT + " INTEGER" + ");";
+            + SUBJECT_ID + " INTEGER, "
+            + " FOREIGN KEY(" + SUBJECT_ID + ") REFERENCES " + SUBJECTS_TABLE + "(" + SUBJECT_ID + "));";
 
     private static final String CREATE_TEACHERS_SUBJECTS_GROUPS_TABLE = "CREATE TABLE "
             + TEACHERS_SUBJECTS_GROUPS_TABLE
@@ -74,7 +77,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_STUDENTS_LABS_TABLE = "CREATE TABLE "
             + STUDENTS_LABS_TABLE
-            + "(" + STUDENT_ID + " INTEGER, " + LAB_ID + " INTEGER, "
+            + "(" + STUDENT_ID + " INTEGER, " + LAB_ID + " INTEGER, " + IS_PRESENT + " INTEGER, "
             + " PRIMARY KEY(" + STUDENT_ID + ", " + LAB_ID + "),"
             + " FOREIGN KEY(" + STUDENT_ID + ") REFERENCES " + STUDENTS_TABLE + "(" + STUDENT_ID + "),"
             + " FOREIGN KEY(" + LAB_ID + ") REFERENCES " + LABS_TABLE + "(" + LAB_ID + "));";
@@ -105,7 +108,9 @@ public class DBHelper extends SQLiteOpenHelper {
         initSubjects(db);
         initGroups(db);
         initStudents(db);
+        initLabs(db);
         initTeachersSubjectsGroups(db);
+        initStudentsLabs(db);
     }
 
     @Override
@@ -121,12 +126,12 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     //INSERTING DATA
-    private void initTeachers(SQLiteDatabase db){
+    private void initTeachers(SQLiteDatabase db) {
         db.execSQL("INSERT INTO " + TEACHERS_TABLE
                 + " VALUES (1, '11111'), (2, '22222'), (3, '33333');");
     }
 
-    private void initSubjects(SQLiteDatabase db){
+    private void initSubjects(SQLiteDatabase db) {
         db.execSQL("INSERT INTO " + SUBJECTS_TABLE
                 + " VALUES (1, 'Математика / Курс 1'), (2, 'Английски език / Курс 2'), "
                 + "(3, 'Информационни системи / Курс 3'), "
@@ -134,12 +139,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 + "(5, 'ООП / Курс 3');");
     }
 
-    private void initGroups(SQLiteDatabase db){
+    private void initGroups(SQLiteDatabase db) {
         db.execSQL("INSERT INTO " + GROUPS_TABLE
                 + " VALUES (1, 47), (2, 48), (3, 49), (4, 50), (5, 51);");
     }
 
-    private void initStudents(SQLiteDatabase db){
+    private void initStudents(SQLiteDatabase db) {
         db.execSQL("INSERT INTO " + STUDENTS_TABLE
                 + " VALUES (1, 'Траян Мучев', '501214001', NULL, 1, 0, NULL), "
                 + "(2, 'Християн Стоянов', '501214002', NULL, 1, 0, NULL), "
@@ -153,35 +158,71 @@ public class DBHelper extends SQLiteOpenHelper {
                 + "(10, 'Елена Георгиева', '501214010', NULL, 5, 0, NULL);");
     }
 
-    private void initLabs(SQLiteDatabase db){
+    private void initLabs(SQLiteDatabase db) {
         db.execSQL("INSERT INTO " + LABS_TABLE
-                + " VALUES (1, 'Упражнение 1', 0), "
-                + "(2, 'Упражнение 2',  0), "
-                + "(3, 'Упражнение 3',  0), "
-                + "(4, 'Упражнение 4',  0), "
-                + "(5, 'Упражнение 5',  0), "
-                + "(6, 'Упражнение 6',  0), "
-                + "(7, 'Упражнение 7',  0);");
+                + " VALUES (1, 'Упражнение 1', 1), "
+                + "(2, 'Упражнение 2', 1), "
+                + "(3, 'Упражнение 3', 1), "
+                + "(4, 'Упражнение 4', 1), "
+                + "(5, 'Упражнение 5', 1), "
+                + "(6, 'Упражнение 6', 1), "
+                + "(7, 'Упражнение 7', 1), "
+
+                + "(8, 'Упражнение 1', 2), "
+                + "(9, 'Упражнение 2', 2), "
+                + "(10, 'Упражнение 3', 2), "
+                + "(11, 'Упражнение 4', 2), "
+                + "(12, 'Упражнение 5', 2), "
+                + "(13, 'Упражнение 6', 2), "
+                + "(14, 'Упражнение 7', 2), "
+
+                + "(15, 'Упражнение 1', 3), "
+                + "(16, 'Упражнение 2', 3), "
+                + "(17, 'Упражнение 3', 3), "
+                + "(18, 'Упражнение 4', 3), "
+                + "(19, 'Упражнение 5', 3), "
+                + "(20, 'Упражнение 6', 3), "
+                + "(21, 'Упражнение 7', 3), "
+
+                + "(22, 'Упражнение 1', 4), "
+                + "(23, 'Упражнение 2', 4), "
+                + "(24, 'Упражнение 3', 4), "
+                + "(25, 'Упражнение 4', 4), "
+                + "(26, 'Упражнение 5', 4), "
+                + "(27, 'Упражнение 6', 4), "
+                + "(28, 'Упражнение 7', 4), "
+
+                + "(29, 'Упражнение 1', 5), "
+                + "(30, 'Упражнение 2', 5), "
+                + "(31, 'Упражнение 3', 5), "
+                + "(32, 'Упражнение 4', 5), "
+                + "(33, 'Упражнение 5', 5), "
+                + "(34, 'Упражнение 6', 5), "
+                + "(35, 'Упражнение 7', 5);");
     }
 
-    private void initTeachersSubjectsGroups(SQLiteDatabase db){
+    private void initTeachersSubjectsGroups(SQLiteDatabase db) {
         db.execSQL("INSERT INTO " + TEACHERS_SUBJECTS_GROUPS_TABLE
                 + " VALUES (1, 1, 1), (1, 2, 2), (1, 3, 1), "
                 + "(2, 3, 3), (2, 4, 5), (3, 4, 4), (3, 5, 5);");
     }
 
-    private void initStudentsLabs(SQLiteDatabase db){
+    private void initStudentsLabs(SQLiteDatabase db) {
         db.execSQL("INSERT INTO " + STUDENTS_LABS_TABLE
-                + " VALUES (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), "
-                + "(2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6), (2, 7),"
-                + " (3, 1), (3, 2), (3, 3), (3, 4), (3, 5), (3, 6), (3, 7),"
-                + " (4, 1), (4, 2), (4, 3), (4, 4), (4, 5), (4, 6), (4, 7),"
-                + " (5, 1), (5, 2), (5, 3), (5, 4), (5, 5), (5, 6), (5, 7),"
-                + " (6, 1), (6, 2), (6, 3), (6, 4), (6, 5), (6, 6), (6, 7),"
-                + " (7, 1), (7, 2), (7, 3), (7, 4), (7, 5), (7, 6), (7, 7),"
-                + " (8, 1), (8, 2), (8, 3), (8, 4), (8, 5), (8, 6), (8, 7),"
-                + " (9, 1), (9, 2), (9, 3), (9, 4), (9, 5), (9, 6), (9, 7),"
-                + " (10, 1), (10, 2), (10, 3), (10, 4), (10, 5), (10, 6), (10, 7);");
+                + " VALUES (1, 1, 0), (1, 2, 0), (1, 3, 0), (1, 4, 0), (1, 5, 0), (1, 6, 0), (1, 7, 0), "
+                + "(2, 1, 0), (2, 2, 0), (2, 3, 0), (2, 4, 0), (2, 5, 0), (2, 6, 0), (2, 7, 0),"
+                + "(1, 15, 0), (1, 16, 0), (1, 17, 0), (1, 18, 0), (1, 19, 0), (1, 20, 0), (1, 21, 0), "
+                + "(2, 15, 0), (2, 16, 0), (2, 17, 0), (2, 18, 0), (2, 19, 0), (2, 20, 0), (2, 21, 0),"
+                + " (3, 8, 0), (3, 9, 0), (3, 10, 0), (3, 11, 0), (3, 12, 0), (3, 13, 0), (3, 14, 0),"
+                + " (4, 8, 0), (4, 9, 0), (4, 10, 0), (4, 11, 0), (4, 12, 0), (4, 13, 0), (4, 14, 0),"
+                + " (5, 15, 0), (5, 16, 0), (5, 17, 0), (5, 18, 0), (5, 19, 0), (5, 20, 0), (5, 21, 0),"
+                + " (6, 15, 0), (6, 16, 0), (6, 17, 0), (6, 18, 0), (6, 19, 0), (6, 20, 0), (6, 21, 0),"
+                + " (7, 22, 0), (7, 23, 0), (7, 24, 0), (7, 25, 0), (7, 26, 0), (7, 27, 0), (7, 28, 0),"
+                + " (8, 22, 0), (8, 23, 0), (8, 24, 0), (8, 25, 0), (8, 26, 0), (8, 27, 0), (8, 28, 0),"
+                + " (9, 22, 0), (9, 23, 0), (9, 24, 0), (9, 25, 0), (9, 26, 0), (9, 27, 0), (9, 28, 0),"
+                + " (10, 22, 0), (10, 23, 0), (10, 24, 0), (10, 25, 0), (10, 26, 0), (10, 27, 0), (10, 28, 0),"
+                + " (9, 29, 0), (9, 30, 0), (9, 31, 0), (9, 32, 0), (9, 33, 0), (9, 34, 0), (9, 35, 0),"
+                + " (10, 29, 0), (10, 30, 0), (10, 31, 0), (10, 32, 0), (10, 33, 0), (10, 34, 0), (10, 35, 0);");
     }
 
 }
