@@ -19,8 +19,6 @@ public class LabsActivity extends Activity {
     SQLiteDatabase db;
     DBHelper dbHelper;
     int groupId;
-    int subjectId;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +34,7 @@ public class LabsActivity extends Activity {
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         groupId = bundle.getInt("groupId");
-        subjectId = bundle.getInt("subjectId");
+        final int subjectId = bundle.getInt("subjectId");
 
         Cursor cursor = db.rawQuery("SELECT * FROM labs "
                 + " WHERE labs.subjectID = '" + subjectId + "';", null);

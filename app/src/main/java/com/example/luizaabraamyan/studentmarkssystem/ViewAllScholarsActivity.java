@@ -44,7 +44,24 @@ public class ViewAllScholarsActivity extends Activity {
         final Bundle bundle = intent.getExtras();
         groupId = bundle.getInt("groupId");
 
-        Cursor cursor = db.rawQuery("SELECT * FROM students WHERE students.studentMark > 4;", null);
+//        Cursor cursor = db.rawQuery("SELECT * FROM students WHERE students.studentMark > 4;", null);
+//        Cursor cursor = db.rawQuery("SELECT * FROM students JOIN students_marks_table " +
+//                "ON(students_marks_table.studentId = students.studentId) " +
+//                "JOIN marks ON(students_marks_table.markId = marks.markId) " +
+//                "JOIN groups ON (students.groupId = groups.groupId) " +
+//                "JOIN teachers_subjects_groups ON (teachers_subjets_groups.groupId = groups.groupId) " +
+//                "JOIN teachers ON (teachers_subjets_groups.teacherId = teachers.teacherId) " +
+//                "WHERE AVG(marks.markNumber) > 4;", null);
+
+//        Cursor cursor = db.rawQuery("SELECT * FROM students JOIN students_marks_table " +
+//                "ON(students_marks_table.studentId = students.studentId) " +
+//                "JOIN marks ON(students_marks_table.markId = marks.markId) " +
+//                "WHERE marks.markNumber > 4;", null);
+
+        //TODO: Fix this request
+        Cursor cursor = db.rawQuery("SELECT AVG(marks.markNumber) AS avg, students.studentId, students.studentName, students.studentFacNum FROM students JOIN students_marks_table " +
+                "ON(students_marks_table.studentId = students.studentId) " +
+                "JOIN marks ON(students_marks_table.markId = marks.markId);", null);
 
         int cursorSize = cursor.getCount();
         if(cursorSize != 0){
@@ -54,7 +71,7 @@ public class ViewAllScholarsActivity extends Activity {
                     student.setId(cursor.getInt(cursor.getColumnIndex("studentId")));
                     student.setName(cursor.getString(cursor.getColumnIndex("studentName")));
                     student.setFacNum(cursor.getString(cursor.getColumnIndex("studentFacNum")));
-                    student.setMark(cursor.getInt(cursor.getColumnIndex("studentMark")));
+//                    student.setMark(cursor.getInt(cursor.getColumnIndex("studentMark")));
                     students.add(student);
                 }while(cursor.moveToNext());
             }
@@ -63,7 +80,7 @@ public class ViewAllScholarsActivity extends Activity {
                     "Няма регистрирани стипендианти!", Toast.LENGTH_SHORT).show();
         }
 
-        recyclerView = findViewById(R.id.recycler_view_students);
+        recyclerView = findViewById(R.id.recycler_view_scholars);
         adapter = new ViewAllScholarsAdapter(this, students);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);

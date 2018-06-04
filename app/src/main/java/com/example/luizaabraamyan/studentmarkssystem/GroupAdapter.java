@@ -16,11 +16,13 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
     private Context context;
     private static List<Group> data;
     int subjectId;
+    String idUniversityNum;
 
-    public GroupAdapter(Context context, List<Group> objects, int subjectId) {
+    public GroupAdapter(Context context, List<Group> objects, int subjectId, String idUniversityNum) {
         this.context = context;
         data = objects;
         this.subjectId = subjectId;
+        this.idUniversityNum = idUniversityNum;
     }
 
     @Override
@@ -51,6 +53,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
                 Intent intent = new Intent(context, MenuActivity.class);
                 intent.putExtra("groupId", group.getId());
                 intent.putExtra("subjectId", subjectId);
+                intent.putExtra("idUniversityNum", idUniversityNum);
                 context.startActivity(intent);
 //                Intent intent = new Intent(context, MarksActivity.class);
 //                intent.putExtra("groupId", group.getId());

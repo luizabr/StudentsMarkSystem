@@ -24,9 +24,13 @@ public class MarksActivity extends Activity {
     SQLiteDatabase db;
     DBHelper dbHelper;
     int groupId;
+    int subjectId;
+    String idUniversityNum;
     Button save;
+    Button home;
     TextView facNum;
     Context context;
+    int mark;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +46,24 @@ public class MarksActivity extends Activity {
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         groupId = bundle.getInt("groupId");
+        subjectId = bundle.getInt("subjectId");
+        idUniversityNum = bundle.getString("idUniversityNum");
         save = findViewById(R.id.saveBtn);
+        home = findViewById(R.id.homeBtn);
 
 
-        Cursor cursor = db.rawQuery("SELECT * FROM students " +
-                "JOIN groups ON (groups.groupId = students.groupId)"
-                + " WHERE groups.groupId = '" + groupId + "';", null);
+        //View all students from this group
+//        Cursor cursor = db.rawQuery("SELECT studentName, studentFacNum, markNumber FROM students " +
+//                "JOIN groups ON (groups.groupId = students.groupId) " +
+//                "JOIN students_marks_table ON(students_marks_table.studentId = students.studentId) " +
+//                "JOIN marks ON(students_marks_table.markId = marks.markId)"
+//                + " WHERE groups.groupId = '" + groupId + "';", null);
+
+        Cursor cursor = db.rawQuery("SELECT * FROM students " + "JOIN groups ON (groups.groupId = students.groupId) " + " WHERE groups.groupId = '" + groupId + "';", null);
 
         final int cursorSize = cursor.getCount();
 
-        if(cursor != null){
+        if(cursorSize != 0){
             if(cursor.moveToFirst()){
                 do{
                     Student student = new Student();
@@ -61,8 +73,9 @@ public class MarksActivity extends Activity {
                             cursor.getColumnIndex("studentName")));
                     student.setFacNum(cursor.getString(
                             cursor.getColumnIndex("studentFacNum")));
-                    student.setMark(cursor.getInt(
-                            cursor.getColumnIndex("studentMark")));
+                    //????????
+//                    student.setMark(cursor.getInt(
+//                            cursor.getColumnIndex("markNumber")));
                     students.add(student);
                 }while(cursor.moveToNext());
             }
@@ -97,15 +110,53 @@ public class MarksActivity extends Activity {
                                 "Въведете оценка от 2 до 6!", Toast.LENGTH_SHORT).show();
                         return;
                     }else{
-                        int mark = Integer.valueOf(studentMark.getText().toString());
-                        db.execSQL("UPDATE students SET studentMark = " +
-                                "'" + mark + "' WHERE students.studentFacNum = " + facNum.getText() + ";");
+                        mark = Integer.valueOf(studentMark.getText().toString());
+//                        db.execSQL("UPDATE students SET studentMark = " +
+//                                "'" + mark + "' WHERE students.studentFacNum = " + facNum.getText() + ";");
+//                        db.execSQL("UPDATE students_marks_table " +
+//                                "JOIN students ON(students_marks_table.studentId = students.studentId) " +
+//                                "JOIN marks ON(students_marks_table.markId = marks.markId) " +
+//                                "JOIN groups ON(students.groupId = groups.groupId) " +
+//                                "JOIN teachers_subjects_groups ON(teachers_subjets_groups.groupId = groups.groupId) " +
+//                                "JOIN teachers ON(teachers_subjets_groups.teacherId = teachers.teacherId) " +
+//                                "SET students_marks_table.studentId = students.studentId, " +
+//                                "students_marks_table.markId = marks.markId" +
+//                                " WHERE students.studentFacNum = " + facNum.getText() +
+//                                " AND teachers_subjects_groups.subjectId = '" + subjectId +
+//                                "' AND teachers.universityId = '" + idUniversityNum + "' AND marks.markNumber = '" + mark +
+//                                "';");
+
+                        db.execSQL("INSERT INTO students_marks_table SELECT students.studentId, markNumber FROM students " +
+                                "JOIN students_marks_table ON(students_marks_table.studentId = students.studentId) " +
+                                "JOIN marks ON(students_marks_table.markId = marks.markId) " +
+                                "JOIN groups ON(students.groupId = groups.groupId) " +
+                                "JOIN teachers_subjects_groups ON(teachers_subjects_groups.groupId = groups.groupId) " +
+                                "JOIN teachers ON(teachers_subjects_groups.teacherId = teachers.teacherId) " +
+                                " WHERE students.studentFacNum = " + facNum.getText() +
+                                " AND teachers_subjects_groups.subjectId = '" + subjectId +
+                                "' AND teachers.universityId = '" + idUniversityNum + "' AND marks.markNumber = '" + mark +
+                                "';");
                     }
                 }
-                Intent intent = new Intent(context, MenuActivity.class);
-                intent.putExtra("groupId", groupId);
-                context.startActivity(intent);
+                Toast.makeText(getApplicationContext(),
+                        "Оценката е успешно записана!", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(context, MenuActivity.class);
+//                intent.putExtra("groupId", groupId);
+//                context.startActivity(intent);
             }
         });
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, MenuActivity.class);
+                intent.putExtra("groupId", groupId);
+                intent.putExtra("subjectId", subjectId);
+                intent.putExtra("idUniversityNum", idUniversityNum);
+                intent.putExtra("mark", mark);
+                context.startActivity(intent);
+            }
+            });
+        }
     }
-}
+

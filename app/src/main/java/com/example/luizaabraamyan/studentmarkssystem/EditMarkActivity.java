@@ -26,11 +26,14 @@ public class EditMarkActivity extends Activity {
     Context context;
 
     int newMark;
+    int oldMark;
 
     int groupId;
+    int subjectId;
+    String idUniversityNum;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_mark);
@@ -48,19 +51,39 @@ public class EditMarkActivity extends Activity {
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         groupId = bundle.getInt("groupId");
+        subjectId = bundle.getInt("subjectId");
+        idUniversityNum = bundle.getString("idUniversityNum");
+        oldMark = bundle.getInt("mark");
+
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String facNum = enterFacNum.getText().toString();
-                Cursor cursor = db.rawQuery("SELECT * FROM students " +
-                        "WHERE students.studentFacNum = '" + facNum + "';", null);
-                if(cursor != null){
+//                Cursor cursor = db.rawQuery("SELECT * FROM students " +
+//                        "WHERE students.studentFacNum = '" + facNum + "';", null);
+
+//                Cursor cursor = db.rawQuery("SELECT studentName, markNumber FROM students" +
+//                        " JOIN students_marks_table" +
+//                        " ON(students_marks_table.studentId = students.studentId) JOIN " +
+//                        "marks ON(students_marks_table.markId = marks.markId)" +
+//                        "WHERE students.studentFacNum = '" + facNum + "';", null);
+
+                Cursor cursor = db.rawQuery("SELECT * FROM students" +
+                        " WHERE students.studentFacNum = '" + facNum + "';", null);
+
+//                Cursor cursor2 = db.rawQuery("SELECT markNumber FROM marks JOIN " +
+//                        "students_marks_table ON(students_marks_table.markId = marks.markId) " +
+//                        "JOIN students ON(students_marks_table.studentId = students.studentId)" +
+//                        " WHERE students.studentFacNum = '" + facNum + "';", null);
+//
+                int cursorSize = cursor.getCount();
+//                int cursorSize2 = cursor2.getCount();
+                if(cursorSize != 0){
                     if(cursor.moveToFirst()) {
                         stName.setText(cursor.getString(
                                 cursor.getColumnIndex("studentName")));
-                        stMark.setText(cursor.getString(
-                                cursor.getColumnIndex("studentMark")));
+                        stMark.setText(String.valueOf(oldMark));
                     }else {
                         Toast.makeText(context,
                                 "Няма студент с такъв факултетен номер !", Toast.LENGTH_SHORT).show();
@@ -85,12 +108,49 @@ public class EditMarkActivity extends Activity {
                     return;
                 }else{
                     newMark = Integer.valueOf(stMark.getText().toString());
-                    db.execSQL("UPDATE students SET studentMark = '" + newMark
-                             + "' WHERE students.studentFacNum = " + enterFacNum.getText() + ";");
+//                    db.execSQL("UPDATE students SET studentMark = '" + newMark
+//                             + "' WHERE students.studentFacNum = " + enterFacNum.getText() + ";");
+//                    db.execSQL("UPDATE students_marks_table " +
+//                            "JOIN students ON(students_marks_table.studentId = students.studentId) " +
+//                            "JOIN marks ON(students_marks_table.markId = marks.markId) " +
+//                            "JOIN groups ON (students.groupId = groups.groupId) " +
+//                            "JOIN teachers_subjects_groups ON (teachers_subjets_groups.groupId = groups.groupId) " +
+//                            "JOIN teachers ON (teachers_subjets_groups.teacherId = teachers.teacherId) " +
+//                            "SET students_marks_table.markId = marks.markId WHERE marks.markNumber = '" + newMark +
+//                            "' AND students.studentFacNum = " + enterFacNum.getText() +
+//                            " AND teachers_subjects_groups.subjectId = '" + subjectId +
+//                            "' AND teachers.universityId = '" + idUniversityNum + "';");
+
+//                    db.execSQL("UPDATE students_marks_table " +
+//                            "SET students_marks_table.markId = (SELECT marks.markId " +
+//                            "WHERE students_marks_table.markId = marks.markId " +
+//                            "AND marks.markNumber = '" + newMark +"' WHERE EXISTS " +
+//                            "SELECT * FROM marks WHERE marks.markId = students_marks_table.markId);");
+
+
+                    db.execSQL("UPDATE students_marks_table " +
+                            "SET markId = (SELECT marks.markId FROM marks " +
+                            "WHERE marks.markId = students_marks_table.markId " +
+                            "AND marks.markNumber = '" + newMark +"' );");
+
+
+
+
+
+//                            "JOIN students ON(students_marks_table.studentId = students.studentId) " +
+//                            "JOIN marks ON(students_marks_table.markId = marks.markId) " +
+//                            "JOIN groups ON (students.groupId = groups.groupId) " +
+//                            "JOIN teachers_subjects_groups ON (teachers_subjets_groups.groupId = groups.groupId) " +
+//                            "JOIN teachers ON (teachers_subjets_groups.teacherId = teachers.teacherId) " +
+//
+//                            "' AND students.studentFacNum = " + enterFacNum.getText() +
+//                            " AND teachers_subjects_groups.subjectId = '" + subjectId +
+//                            "' AND teachers.universityId = '" + idUniversityNum + "';");
+
                     Toast.makeText(getApplicationContext(),
                             "Оценката е успешно променена!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(context, MenuActivity.class);
-                    context.startActivity(intent);
+//                    Intent intent = new Intent(context, MenuActivity.class);
+//                    context.startActivity(intent);
                 }
             }
         });
@@ -100,6 +160,8 @@ public class EditMarkActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(context, MenuActivity.class);
                 intent.putExtra("groupId", groupId);
+                intent.putExtra("subjectId", subjectId);
+                intent.putExtra("idUniversityNum", idUniversityNum);
 //                intent.putExtra("bundle", bundle);
                 context.startActivity(intent);
             }

@@ -55,7 +55,7 @@ public class SubjectsActivity extends Activity {
         }
 
         recyclerView = findViewById(R.id.recycler_view_subjects);
-        adapter = new SubjectAdapter(this, subjects);
+        adapter = new SubjectAdapter(this, subjects, idUniversityNum);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);

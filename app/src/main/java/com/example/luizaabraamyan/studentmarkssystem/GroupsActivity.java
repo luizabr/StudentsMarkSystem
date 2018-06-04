@@ -22,6 +22,7 @@ public class GroupsActivity extends Activity {
     //Why is this here
 //    String groupNumber;
     int subjectId;
+    String idUniversityNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class GroupsActivity extends Activity {
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         subjectId = bundle.getInt("subjectId");
+        idUniversityNum = bundle.getString("idUniversityNum");
 
         //test
 //        Intent intent1 = new Intent("subjectIntent");
@@ -64,7 +66,7 @@ public class GroupsActivity extends Activity {
         }
 
         recyclerView = findViewById(R.id.recycler_view_groups);
-        adapter = new GroupAdapter(this, groups, subjectId);
+        adapter = new GroupAdapter(this, groups, subjectId, idUniversityNum);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);

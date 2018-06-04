@@ -57,12 +57,16 @@ public class MenuActivity extends Activity {
         Bundle bundle = intent.getExtras();
         final int groupId = bundle.getInt("groupId");
         final int subjectId = bundle.getInt("subjectId");
+        final String idUniversityNum = bundle.getString("idUniversityNum");
+        final int mark = bundle.getInt("mark");
 
         addMark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, MarksActivity.class);
                 intent.putExtra("groupId", groupId);
+                intent.putExtra("subjectId", subjectId);
+                intent.putExtra("idUniversityNum", idUniversityNum);
                 context.startActivity(intent);
             }
         });
@@ -72,6 +76,8 @@ public class MenuActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(context, EndorsementsActivity.class);
                 intent.putExtra("groupId", groupId);
+//                intent.putExtra("subjectId", subjectId);
+//                intent.putExtra("idUniversityNum", idUniversityNum);
                 context.startActivity(intent);
             }
         });
@@ -92,6 +98,9 @@ public class MenuActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(context, EditMarkActivity.class);
                 intent.putExtra("groupId", groupId);
+                intent.putExtra("subjectId", subjectId);
+                intent.putExtra("idUniversityNum", idUniversityNum);
+                intent.putExtra("mark", mark);
                 context.startActivity(intent);
             }
         });
@@ -110,6 +119,8 @@ public class MenuActivity extends Activity {
             public void onClick(View v){
                 Intent intent = new Intent(context, ViewAllScholarsActivity.class);
                 intent.putExtra("groupId", groupId);
+                intent.putExtra("subjectId", subjectId);
+                intent.putExtra("idUniversityNum", idUniversityNum);
                 context.startActivity(intent);
             }
         });
@@ -118,7 +129,7 @@ public class MenuActivity extends Activity {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(context, MainActivity.class);
-                intent.putExtra("groupId", groupId);
+//                intent.putExtra("groupId", groupId);
                 context.startActivity(intent);
             }
         });

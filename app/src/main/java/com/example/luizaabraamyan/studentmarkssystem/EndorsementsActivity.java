@@ -69,8 +69,6 @@ public class EndorsementsActivity extends Activity {
                             cursor.getColumnIndex("studentName")));
                     student.setFacNum(cursor.getString(
                             cursor.getColumnIndex("studentFacNum")));
-                    student.setMark(cursor.getInt(
-                            cursor.getColumnIndex("studentMark")));
                     student.setIsEndorsed(cursor.getInt(
                             cursor.getColumnIndex("isStudentEndorsed")));
                     student.setNote(cursor.getString(

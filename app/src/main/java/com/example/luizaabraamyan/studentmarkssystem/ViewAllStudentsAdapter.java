@@ -23,7 +23,7 @@ public class ViewAllStudentsAdapter extends RecyclerView.Adapter<ViewAllStudents
     @Override
     public StudentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_student, parent, false);
+                .inflate(R.layout.item_student_all, parent, false);
         return new StudentViewHolder(itemView);
     }
 
@@ -31,13 +31,13 @@ public class ViewAllStudentsAdapter extends RecyclerView.Adapter<ViewAllStudents
 
         public TextView studentName;
         public TextView facNum;
-        public EditText studentMark;
+//        public EditText studentMark;
 
         public StudentViewHolder(View view) {
             super(view);
             studentName = view.findViewById(R.id.studentName);
             facNum = view.findViewById(R.id.facNum);
-            studentMark = view.findViewById(R.id.studentMark);
+//            studentMark = view.findViewById(R.id.studentMark);
         }
     }
 
@@ -46,7 +46,7 @@ public class ViewAllStudentsAdapter extends RecyclerView.Adapter<ViewAllStudents
         final Student student = data.get(position);
         holder.studentName.setText(student.getName());
         holder.facNum.setText(student.getFacNum());
-        holder.studentMark.setText(String.valueOf(student.getMark()));
+//        holder.studentMark.setText(String.valueOf(student.getMark()));
     }
 
     @Override

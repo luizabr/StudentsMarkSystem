@@ -23,7 +23,7 @@ public class ViewAllScholarsAdapter extends RecyclerView.Adapter<ViewAllScholars
     @Override
     public StudentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_student, parent, false);
+                .inflate(R.layout.item_scholar, parent, false);
         return new StudentViewHolder(itemView);
     }
 
@@ -46,7 +46,7 @@ public class ViewAllScholarsAdapter extends RecyclerView.Adapter<ViewAllScholars
         final Student student = data.get(position);
         holder.studentName.setText(student.getName());
         holder.facNum.setText(student.getFacNum());
-        holder.studentMark.setText(String.valueOf(student.getMark()));
+//        holder.studentMark.setText(String.valueOf(student.getMark()));
     }
 
     @Override

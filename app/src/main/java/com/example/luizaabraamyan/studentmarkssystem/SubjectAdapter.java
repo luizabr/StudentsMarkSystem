@@ -14,10 +14,13 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
 
     private Context context;
     private static List<Subject> data;
+    String idUniversityNum;
 
-    public SubjectAdapter(Context context, List<Subject> objects) {
+
+    public SubjectAdapter(Context context, List<Subject> objects, String idUniversityNum) {
         this.context = context;
         data = objects;
+        this.idUniversityNum = idUniversityNum;
     }
 
     @Override
@@ -47,6 +50,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
             public void onClick(View v) {
                 Intent intent = new Intent(context, GroupsActivity.class);
                 intent.putExtra("subjectId", subject.getId());
+                intent.putExtra("idUniversityNum", idUniversityNum);
                 context.startActivity(intent);
             }
         });
