@@ -1,4 +1,4 @@
-package com.example.luizaabraamyan.studentmarkssystem;
+package com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,6 +14,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.luizaabraamyan.studentmarkssystem.DBHelper;
+import com.example.luizaabraamyan.studentmarkssystem.com.example
+        .luizaabraamyan.studentmarkssystem.adapters.MarkAdapter;
+import com.example.luizaabraamyan.studentmarkssystem.R;
+import com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan
+        .studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.objects.Student;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,14 +30,17 @@ public class MarksActivity extends Activity {
     private MarkAdapter adapter;
     SQLiteDatabase db;
     DBHelper dbHelper;
-    int groupId;
-    int subjectId;
-    String idUniversityNum;
+    Context context;
+
     Button save;
     Button home;
     TextView facNum;
-    Context context;
+
+    String idUniversityNum;
+    int subjectId;
+    int groupId;
     int mark;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,27 +55,22 @@ public class MarksActivity extends Activity {
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
-        groupId = bundle.getInt("groupId");
-        subjectId = bundle.getInt("subjectId");
         idUniversityNum = bundle.getString("idUniversityNum");
+        subjectId = bundle.getInt("subjectId");
+        groupId = bundle.getInt("groupId");
+
         save = findViewById(R.id.saveBtn);
         home = findViewById(R.id.homeBtn);
 
-
-        //View all students from this group
-//        Cursor cursor = db.rawQuery("SELECT studentName, studentFacNum, markNumber FROM students " +
-//                "JOIN groups ON (groups.groupId = students.groupId) " +
-//                "JOIN students_marks_table ON(students_marks_table.studentId = students.studentId) " +
-//                "JOIN marks ON(students_marks_table.markId = marks.markId)"
-//                + " WHERE groups.groupId = '" + groupId + "';", null);
-
-        Cursor cursor = db.rawQuery("SELECT * FROM students " + "JOIN groups ON (groups.groupId = students.groupId) " + " WHERE groups.groupId = '" + groupId + "';", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM students " +
+                "JOIN groups " +
+                "ON (groups.groupId = students.groupId) " +
+                "WHERE groups.groupId = '" + groupId + "';", null);
 
         final int cursorSize = cursor.getCount();
-
-        if(cursorSize != 0){
-            if(cursor.moveToFirst()){
-                do{
+        if (cursorSize != 0) {
+            if (cursor.moveToFirst()) {
+                do {
                     Student student = new Student();
                     student.setId(cursor.getInt(
                             cursor.getColumnIndex("studentId")));
@@ -73,13 +78,10 @@ public class MarksActivity extends Activity {
                             cursor.getColumnIndex("studentName")));
                     student.setFacNum(cursor.getString(
                             cursor.getColumnIndex("studentFacNum")));
-                    //????????
-//                    student.setMark(cursor.getInt(
-//                            cursor.getColumnIndex("markNumber")));
                     students.add(student);
-                }while(cursor.moveToNext());
+                } while (cursor.moveToNext());
             }
-        }else{
+        } else {
             Toast.makeText(this,
                     "Няма регистрирани студенти в тази група!", Toast.LENGTH_SHORT).show();
         }
@@ -95,40 +97,29 @@ public class MarksActivity extends Activity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(int i = 0; i < cursorSize; i++){
+                for (int i = 0; i < cursorSize; i++) {
                     View view = recyclerView.getChildAt(i);
                     EditText studentMark = view.findViewById(R.id.studentMark);
                     facNum = view.findViewById(R.id.facNum);
 
-                    if(studentMark.getText().length() == 0){
+                    if (studentMark.getText().length() == 0) {
                         Toast.makeText(getApplicationContext(),
                                 "Всички оценки трябва да са попълнени!", Toast.LENGTH_SHORT).show();
                         return;
-                    }else if(Integer.valueOf(studentMark.getText().toString()) <= 1 ||
-                             Integer.valueOf(studentMark.getText().toString()) >= 7){
+                    } else if (Integer.valueOf(studentMark.getText().toString()) <= 1 ||
+                            Integer.valueOf(studentMark.getText().toString()) >= 7) {
                         Toast.makeText(getApplicationContext(),
                                 "Въведете оценка от 2 до 6!", Toast.LENGTH_SHORT).show();
                         return;
-                    }else{
+                    } else {
                         mark = Integer.valueOf(studentMark.getText().toString());
-//                        db.execSQL("UPDATE students SET studentMark = " +
-//                                "'" + mark + "' WHERE students.studentFacNum = " + facNum.getText() + ";");
-//                        db.execSQL("UPDATE students_marks_table " +
-//                                "JOIN students ON(students_marks_table.studentId = students.studentId) " +
-//                                "JOIN marks ON(students_marks_table.markId = marks.markId) " +
-//                                "JOIN groups ON(students.groupId = groups.groupId) " +
-//                                "JOIN teachers_subjects_groups ON(teachers_subjets_groups.groupId = groups.groupId) " +
-//                                "JOIN teachers ON(teachers_subjets_groups.teacherId = teachers.teacherId) " +
-//                                "SET students_marks_table.studentId = students.studentId, " +
-//                                "students_marks_table.markId = marks.markId" +
-//                                " WHERE students.studentFacNum = " + facNum.getText() +
-//                                " AND teachers_subjects_groups.subjectId = '" + subjectId +
-//                                "' AND teachers.universityId = '" + idUniversityNum + "' AND marks.markNumber = '" + mark +
-//                                "';");
 
-                        db.execSQL("INSERT INTO students_marks_table SELECT students.studentId, markNumber FROM students " +
-                                "JOIN students_marks_table ON(students_marks_table.studentId = students.studentId) " +
-                                "JOIN marks ON(students_marks_table.markId = marks.markId) " +
+                        db.execSQL("UPDATE students SET studentTempMark = " +
+                                "'" + mark + "' WHERE students.studentFacNum = " + facNum.getText() + ";");
+
+                        db.execSQL("INSERT INTO students_marks SELECT students.studentId, markNumber FROM students " +
+                                "JOIN students_marks ON(students_marks.studentId = students.studentId) " +
+                                "JOIN marks ON(students_marks.markId = marks.markId) " +
                                 "JOIN groups ON(students.groupId = groups.groupId) " +
                                 "JOIN teachers_subjects_groups ON(teachers_subjects_groups.groupId = groups.groupId) " +
                                 "JOIN teachers ON(teachers_subjects_groups.teacherId = teachers.teacherId) " +
@@ -140,9 +131,6 @@ public class MarksActivity extends Activity {
                 }
                 Toast.makeText(getApplicationContext(),
                         "Оценката е успешно записана!", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(context, MenuActivity.class);
-//                intent.putExtra("groupId", groupId);
-//                context.startActivity(intent);
             }
         });
 
@@ -150,13 +138,13 @@ public class MarksActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, MenuActivity.class);
-                intent.putExtra("groupId", groupId);
-                intent.putExtra("subjectId", subjectId);
                 intent.putExtra("idUniversityNum", idUniversityNum);
+                intent.putExtra("subjectId", subjectId);
+                intent.putExtra("groupId", groupId);
                 intent.putExtra("mark", mark);
                 context.startActivity(intent);
             }
-            });
-        }
+        });
     }
+}
 

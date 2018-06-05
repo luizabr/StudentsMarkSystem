@@ -1,4 +1,4 @@
-package com.example.luizaabraamyan.studentmarkssystem;
+package com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +9,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import com.example.luizaabraamyan.studentmarkssystem.DBHelper;
+import com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan
+        .studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.objects.Lab;
+import com.example.luizaabraamyan
+        .studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.adapters.LabAdapter;
+import com.example.luizaabraamyan.studentmarkssystem.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +25,11 @@ public class LabsActivity extends Activity {
     private LabAdapter adapter;
     SQLiteDatabase db;
     DBHelper dbHelper;
+
+    String idUniversityNum;
+    int subjectId;
     int groupId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +44,12 @@ public class LabsActivity extends Activity {
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
+        idUniversityNum = bundle.getString("universityId");
         groupId = bundle.getInt("groupId");
-        final int subjectId = bundle.getInt("subjectId");
+        subjectId = bundle.getInt("subjectId");
 
-        Cursor cursor = db.rawQuery("SELECT * FROM labs "
-                + " WHERE labs.subjectID = '" + subjectId + "';", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM labs " +
+                "WHERE labs.subjectID = '" + subjectId + "';", null);
 
         int cursorSize = cursor.getCount();
         if (cursorSize != 0) {
@@ -46,7 +58,6 @@ public class LabsActivity extends Activity {
                     Lab lab = new Lab();
                     lab.setLabId(cursor.getInt(cursor.getColumnIndex("labId")));
                     lab.setPrettyName(cursor.getString(cursor.getColumnIndex("prettyName")));
-//                    lab.setIsPresent(cursor.getInt(cursor.getColumnIndex("isPresent")));
                     labs.add(lab);
                 } while (cursor.moveToNext());
             }
@@ -56,7 +67,7 @@ public class LabsActivity extends Activity {
         }
 
         recyclerView = findViewById(R.id.recycler_view_labs);
-        adapter = new LabAdapter(this, labs);
+        adapter = new LabAdapter(this, labs, idUniversityNum, subjectId, groupId);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);

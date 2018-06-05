@@ -19,8 +19,8 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String LABS_TABLE = "labs";
     private static final String MARKS_TABLE = "marks";
     private static final String TEACHERS_SUBJECTS_GROUPS_TABLE = "teachers_subjects_groups";
-    private static final String STUDENTS_LABS_TABLE = "students_labs_table";
-    private static final String STUDENTS_MARKS_TABLE = "students_marks_table";
+    private static final String STUDENTS_LABS_TABLE = "students_labs";
+    private static final String STUDENTS_MARKS_TABLE = "students_marks";
 
 
     private static final String TEACHER_ID = "teacherId";
@@ -35,7 +35,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String STUDENT_ID = "studentId";
     private static final String STUDENT_NAME = "studentName";
     private static final String STUDENT_FAC_NUM = "studentFacNum";
-//    private static final String STUDENT_MARK = "studentMark";
+    private static final String STUDENT_TEMP_MARK = "studentTempMark";
     private static final String IS_STUDENT_ENDORSED = "isStudentEndorsed";
     private static final String STUDENT_NOTE = "studentNote";
 
@@ -62,8 +62,8 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String CREATE_STUDENTS_TABLE = "CREATE TABLE "
             + STUDENTS_TABLE + "(" + STUDENT_ID + " INTEGER PRIMARY KEY, "
             + STUDENT_NAME + " TEXT, " + STUDENT_FAC_NUM + " TEXT, "
-            + GROUP_ID + " INTEGER,"
-            + IS_STUDENT_ENDORSED + " INTEGER, " + STUDENT_NOTE + " TEXT, "
+            + GROUP_ID + " INTEGER, "
+            + IS_STUDENT_ENDORSED + " INTEGER, " + STUDENT_NOTE + " TEXT, " + STUDENT_TEMP_MARK + " INTEGER,"
             + " FOREIGN KEY(" + GROUP_ID + ") REFERENCES " + GROUPS_TABLE + "(" + GROUP_ID + "));";
 
     //Added subject id. Relation subject - lab -> 1 - M. Removed isPresent.
@@ -167,16 +167,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private void initStudents(SQLiteDatabase db) {
         db.execSQL("INSERT INTO " + STUDENTS_TABLE
-                + " VALUES (1, 'Траян Мучев', '501214001', 1, NULL, NULL), "
-                + "(2, 'Християн Стоянов', '501214002', 1, NULL, NULL), "
-                + "(3, 'Борислав Борисов', '501214003', 2, NULL, NULL), "
-                + "(4, 'Камен Тодоров', '501214004', 2, NULL, NULL), "
-                + "(5, 'Антонина Петрова', '501214005', 3, NULL, NULL), "
-                + "(6, 'Красимира Димова', '501214006', 3, NULL, NULL), "
-                + "(7, 'Мария Иванова', '501214007', 4, NULL, NULL), "
-                + "(8, 'Луиза Абраамян', '501214008', 4, NULL, NULL), "
-                + "(9, 'Мая Петрова', '501214009', 5, NULL, NULL), "
-                + "(10, 'Елена Георгиева', '501214010', 5, NULL, NULL);");
+                + " VALUES (1, 'Траян Мучев', '501214001', 1, NULL, NULL, 0), "
+                + "(2, 'Християн Стоянов', '501214002', 1, NULL, NULL, 0), "
+                + "(3, 'Борислав Борисов', '501214003', 2, NULL, NULL, 0), "
+                + "(4, 'Камен Тодоров', '501214004', 2, NULL, NULL, 0), "
+                + "(5, 'Антонина Петрова', '501214005', 3, NULL, NULL, 0), "
+                + "(6, 'Красимира Димова', '501214006', 3, NULL, NULL, 0), "
+                + "(7, 'Мария Иванова', '501214007', 4, NULL, NULL, 0), "
+                + "(8, 'Луиза Абраамян', '501214008', 4, NULL, NULL, 0), "
+                + "(9, 'Мая Петрова', '501214009', 5, NULL, NULL, 0), "
+                + "(10, 'Елена Георгиева', '501214010', 5, NULL, NULL, 0);");
     }
 
     private void initLabs(SQLiteDatabase db) {
@@ -254,8 +254,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private void initStudentsMarks(SQLiteDatabase db) {
         db.execSQL("INSERT INTO " + STUDENTS_MARKS_TABLE
-                + " VALUES (1, 6), (1, 5), (1, 6), (1, 6), (1, 6), " +
-                "(2, 4), (2, 2), (2, 3), (2, 2), (2, 3);");
+                + " VALUES (NULL, NULL);");
     }
 
 }

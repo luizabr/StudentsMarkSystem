@@ -1,4 +1,4 @@
-package com.example.luizaabraamyan.studentmarkssystem;
+package com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,6 +12,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.luizaabraamyan.studentmarkssystem.DBHelper;
+import com.example.luizaabraamyan.studentmarkssystem.R;
+import com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan
+        .studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.objects.Student;
+import com.example.luizaabraamyan
+        .studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.adapters.ViewAllScholarsAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +31,10 @@ public class ViewAllScholarsActivity extends Activity {
     Context context;
 
     Button home;
+
+    String idUniversityNum;
     int groupId;
+    int subjectId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,40 +52,34 @@ public class ViewAllScholarsActivity extends Activity {
 
         Intent intent = this.getIntent();
         final Bundle bundle = intent.getExtras();
+        idUniversityNum = bundle.getString("universityId");
+        subjectId = bundle.getInt("subjectId");
         groupId = bundle.getInt("groupId");
 
-//        Cursor cursor = db.rawQuery("SELECT * FROM students WHERE students.studentMark > 4;", null);
-//        Cursor cursor = db.rawQuery("SELECT * FROM students JOIN students_marks_table " +
-//                "ON(students_marks_table.studentId = students.studentId) " +
-//                "JOIN marks ON(students_marks_table.markId = marks.markId) " +
+
+//        Cursor cursor = db.rawQuery("SELECT * FROM students JOIN students_marks " +
+//                "ON(students_marks.studentId = students.studentId) " +
+//                "JOIN marks ON(students_marks.markId = marks.markId) " +
 //                "JOIN groups ON (students.groupId = groups.groupId) " +
 //                "JOIN teachers_subjects_groups ON (teachers_subjets_groups.groupId = groups.groupId) " +
 //                "JOIN teachers ON (teachers_subjets_groups.teacherId = teachers.teacherId) " +
 //                "WHERE AVG(marks.markNumber) > 4;", null);
 
-//        Cursor cursor = db.rawQuery("SELECT * FROM students JOIN students_marks_table " +
-//                "ON(students_marks_table.studentId = students.studentId) " +
-//                "JOIN marks ON(students_marks_table.markId = marks.markId) " +
-//                "WHERE marks.markNumber > 4;", null);
-
-        //TODO: Fix this request
-        Cursor cursor = db.rawQuery("SELECT AVG(marks.markNumber) AS avg, students.studentId, students.studentName, students.studentFacNum FROM students JOIN students_marks_table " +
-                "ON(students_marks_table.studentId = students.studentId) " +
-                "JOIN marks ON(students_marks_table.markId = marks.markId);", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM students " +
+                "WHERE students.studentTempMark > 4;", null);
 
         int cursorSize = cursor.getCount();
-        if(cursorSize != 0){
-            if(cursor.moveToFirst()){
-                do{
+        if (cursorSize != 0) {
+            if (cursor.moveToFirst()) {
+                do {
                     Student student = new Student();
                     student.setId(cursor.getInt(cursor.getColumnIndex("studentId")));
                     student.setName(cursor.getString(cursor.getColumnIndex("studentName")));
                     student.setFacNum(cursor.getString(cursor.getColumnIndex("studentFacNum")));
-//                    student.setMark(cursor.getInt(cursor.getColumnIndex("studentMark")));
                     students.add(student);
-                }while(cursor.moveToNext());
+                } while (cursor.moveToNext());
             }
-        }else{
+        } else {
             Toast.makeText(this,
                     "Няма регистрирани стипендианти!", Toast.LENGTH_SHORT).show();
         }
@@ -92,14 +96,13 @@ public class ViewAllScholarsActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, MenuActivity.class);
+                intent.putExtra("universityId", idUniversityNum);
+                intent.putExtra("subjectId", subjectId);
                 intent.putExtra("groupId", groupId);
-//                intent.putExtra("bundle", bundle);
                 context.startActivity(intent);
             }
         });
     }
-
-
 
 
 }

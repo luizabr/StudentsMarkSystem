@@ -1,4 +1,4 @@
-package com.example.luizaabraamyan.studentmarkssystem;
+package com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,6 +12,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.luizaabraamyan.studentmarkssystem.DBHelper;
+import com.example.luizaabraamyan.studentmarkssystem.R;
+import com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan
+        .studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.objects.Student;
+import com.example.luizaabraamyan.studentmarkssystem
+        .com.example.luizaabraamyan.studentmarkssystem.adapters.ViewAllStudentsAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +31,10 @@ public class ViewAllStudentsActivity extends Activity {
     Context context;
 
     Button home;
+
+    String idUniversityNum;
     int groupId;
+    int subjectId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,26 +50,27 @@ public class ViewAllStudentsActivity extends Activity {
 
         Intent intent = this.getIntent();
         final Bundle bundle = intent.getExtras();
+        idUniversityNum = bundle.getString("universityId");
+        subjectId = bundle.getInt("subjectId");
         groupId = bundle.getInt("groupId");
 
         home = findViewById(R.id.homeBtn);
 
         Cursor cursor = db.rawQuery("SELECT * FROM students;", null);
 
-        if(cursor != null){
-            if(cursor.moveToFirst()){
-                do{
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                do {
                     Student student = new Student();
                     student.setId(cursor.getInt(cursor.getColumnIndex("studentId")));
                     student.setName(cursor.getString(cursor.getColumnIndex("studentName")));
                     student.setFacNum(cursor.getString(cursor.getColumnIndex("studentFacNum")));
-//                    student.setMark(cursor.getInt(cursor.getColumnIndex("studentMark")));
                     students.add(student);
-                }while(cursor.moveToNext());
+                } while (cursor.moveToNext());
             }
-        }else{
+        } else {
             Toast.makeText(this,
-                    "No students registered!", Toast.LENGTH_SHORT).show();
+                    "Няма регистрирани студенти в системата!", Toast.LENGTH_SHORT).show();
         }
 
         recyclerView = findViewById(R.id.recycler_view_students);
@@ -74,8 +85,9 @@ public class ViewAllStudentsActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, MenuActivity.class);
+                intent.putExtra("universityId", idUniversityNum);
+                intent.putExtra("subjectId", subjectId);
                 intent.putExtra("groupId", groupId);
-//                intent.putExtra("bundle", bundle);
                 context.startActivity(intent);
             }
         });

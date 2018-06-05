@@ -1,4 +1,4 @@
-package com.example.luizaabraamyan.studentmarkssystem;
+package com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,14 +8,18 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.luizaabraamyan.studentmarkssystem.R;
+import com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan
+        .studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.objects.Student;
+
 import java.util.List;
 
-public class ViewAllStudentsAdapter extends RecyclerView.Adapter<ViewAllStudentsAdapter.StudentViewHolder> {
+public class ViewAllScholarsAdapter extends RecyclerView.Adapter<ViewAllScholarsAdapter.StudentViewHolder> {
 
     private Context context;
     private static List<Student> data;
 
-    public ViewAllStudentsAdapter(Context context, List<Student> objects) {
+    public ViewAllScholarsAdapter(Context context, List<Student> objects) {
         this.context = context;
         data = objects;
     }
@@ -23,7 +27,7 @@ public class ViewAllStudentsAdapter extends RecyclerView.Adapter<ViewAllStudents
     @Override
     public StudentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_student_all, parent, false);
+                .inflate(R.layout.item_scholar, parent, false);
         return new StudentViewHolder(itemView);
     }
 
@@ -31,22 +35,21 @@ public class ViewAllStudentsAdapter extends RecyclerView.Adapter<ViewAllStudents
 
         public TextView studentName;
         public TextView facNum;
-//        public EditText studentMark;
+        public EditText studentMark;
 
         public StudentViewHolder(View view) {
             super(view);
             studentName = view.findViewById(R.id.studentName);
             facNum = view.findViewById(R.id.facNum);
-//            studentMark = view.findViewById(R.id.studentMark);
+            studentMark = view.findViewById(R.id.studentMark);
         }
     }
 
     @Override
-    public void onBindViewHolder(final ViewAllStudentsAdapter.StudentViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewAllScholarsAdapter.StudentViewHolder holder, final int position) {
         final Student student = data.get(position);
         holder.studentName.setText(student.getName());
         holder.facNum.setText(student.getFacNum());
-//        holder.studentMark.setText(String.valueOf(student.getMark()));
     }
 
     @Override

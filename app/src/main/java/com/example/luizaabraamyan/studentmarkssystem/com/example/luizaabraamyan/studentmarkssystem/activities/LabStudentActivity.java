@@ -1,4 +1,4 @@
-package com.example.luizaabraamyan.studentmarkssystem;
+package com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,32 +11,41 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.luizaabraamyan.studentmarkssystem.DBHelper;
+import com.example.luizaabraamyan.studentmarkssystem.R;
+import com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan
+        .studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.objects.Student;
+import com.example.luizaabraamyan
+        .studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.adapters.LabStudentAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EndorsementsActivity extends Activity {
+public class LabStudentActivity extends Activity {
 
     private RecyclerView recyclerView;
-    private EndorsementAdapter adapter;
+    private LabStudentAdapter adapter;
     SQLiteDatabase db;
     DBHelper dbHelper;
     Context context;
 
-    int groupId;
     TextView facNum;
-
-    Button endorseAll;
+    Button checkAll;
     Button save;
     Button home;
+
+    String idUniversityNum;
+    int subjectId;
+    int groupId;
+    int labId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_endorsement);
+        setContentView(R.layout.activity_student_lab);
 
         final List<Student> students = new ArrayList<>();
 
@@ -45,23 +54,27 @@ public class EndorsementsActivity extends Activity {
         context = this;
 
         Intent intent = this.getIntent();
-        final Bundle bundle = intent.getExtras();
+        Bundle bundle = intent.getExtras();
+        idUniversityNum = bundle.getString("universityId");
+        subjectId = bundle.getInt("subjectId");
         groupId = bundle.getInt("groupId");
+        labId = bundle.getInt("labId");
 
-        endorseAll = findViewById(R.id.endorseAllBtn);
-        save = findViewById(R.id.saveBtn);
+        checkAll = findViewById(R.id.checkAllBtn);
+        save = findViewById(R.id.saveCheckedBtn);
         home = findViewById(R.id.homeBtn);
 
 
         Cursor cursor = db.rawQuery("SELECT * FROM students " +
-                "JOIN groups ON (groups.groupId = students.groupId)"
-                + " WHERE groups.groupId = '" + groupId + "';", null);
+                "JOIN students_labs " +
+                "ON (students_labs.studentId = students.studentId) " +
+                "WHERE students_labs.labId = '" + labId + "';", null);
 
         final int cursorSize = cursor.getCount();
 
-        if(cursorSize != 0){
-            if(cursor.moveToFirst()){
-                do{
+        if (cursorSize != 0) {
+            if (cursor.moveToFirst()) {
+                do {
                     Student student = new Student();
                     student.setId(cursor.getInt(
                             cursor.getColumnIndex("studentId")));
@@ -69,35 +82,32 @@ public class EndorsementsActivity extends Activity {
                             cursor.getColumnIndex("studentName")));
                     student.setFacNum(cursor.getString(
                             cursor.getColumnIndex("studentFacNum")));
-                    student.setIsEndorsed(cursor.getInt(
-                            cursor.getColumnIndex("isStudentEndorsed")));
-                    student.setNote(cursor.getString(
-                            cursor.getColumnIndex("studentNote")));
+                    student.setIsPresent(cursor.getInt(
+                            cursor.getColumnIndex("isPresent")));
                     students.add(student);
-                }while(cursor.moveToNext());
+                } while (cursor.moveToNext());
             }
-        }else{
+        } else {
             Toast.makeText(this,
                     "Няма регистрирани студенти в тази група!", Toast.LENGTH_SHORT).show();
         }
 
-        recyclerView = findViewById(R.id.recycler_view_student_endorsement);
-        adapter = new EndorsementAdapter(this, students);
+        recyclerView = findViewById(R.id.recycler_view_student_lab);
+        adapter = new LabStudentAdapter(this, students);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
 
-        endorseAll.setOnClickListener(new View.OnClickListener() {
+        checkAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 for (int i = 0; i < cursorSize; i++) {
                     View view = recyclerView.getChildAt(i);
 
-                    CheckBox endorseCheck = view.findViewById(R.id.isEndorsedBox);
-                    //See if this works, performClick() might be used
-                    endorseCheck.setChecked(true);
+                    CheckBox presenceCheck = view.findViewById(R.id.isPresentBox);
+                    presenceCheck.setChecked(true);
                 }
             }
         });
@@ -105,36 +115,36 @@ public class EndorsementsActivity extends Activity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(int i = 0; i < cursorSize; i++){
+                for (int i = 0; i < cursorSize; i++) {
                     View view = recyclerView.getChildAt(i);
-                    CheckBox endorseCheck = view.findViewById(R.id.isEndorsedBox);
+                    CheckBox presenceCheck = view.findViewById(R.id.isPresentBox);
                     facNum = view.findViewById(R.id.facNum);
 
-                    int isEndorsed = 0;
-                    if(endorseCheck.isChecked()){
-                        isEndorsed = 1;
+                    int isPresent = 0;
+                    if (presenceCheck.isChecked()) {
+                        isPresent = 1;
                     }
 
-                    EditText stNote = view.findViewById(R.id.note);
-                    String note = stNote.getText().toString();
+                    presenceCheck.setChecked(true);
 
-                        db.execSQL("UPDATE students SET isStudentEndorsed = '" +
-                                + isEndorsed + "', studentNote = '" + note + "' WHERE "
-                                + "students.studentFacNum = " + facNum.getText() + ";");
-                    }
-
-                    Toast.makeText(getApplicationContext(),
-                            "Промените бяха записани успешно!", Toast.LENGTH_SHORT).show();
+                    db.execSQL("UPDATE students_labs " +
+                            "SET isPresent = '" + isPresent + "' " +
+                            "WHERE students_labs.labId = '" + labId + "';");
 
                 }
+                Toast.makeText(getApplicationContext(),
+                        "Промените бяха записани успешно!", Toast.LENGTH_SHORT).show();
+            }
         });
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, MenuActivity.class);
+                intent.putExtra("universityId", idUniversityNum);
+                intent.putExtra("subjectId", subjectId);
                 intent.putExtra("groupId", groupId);
-//                intent.putExtra("bundle", bundle);
+                intent.putExtra("labId", labId);
                 context.startActivity(intent);
             }
         });

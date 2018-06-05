@@ -1,4 +1,4 @@
-package com.example.luizaabraamyan.studentmarkssystem;
+package com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.luizaabraamyan.studentmarkssystem.R;
+import com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan
+        .studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.objects.Student;
 
 import java.util.List;
 
@@ -34,7 +38,6 @@ public class EndorsementAdapter extends RecyclerView.Adapter<EndorsementAdapter.
         public TextView facNum;
         public CheckBox isStudentEndorsed;
         public EditText studentNote;
-//        public EditText studentMark;
 
         public StudentEndorsementViewHolder(View view) {
             super(view);
@@ -42,7 +45,6 @@ public class EndorsementAdapter extends RecyclerView.Adapter<EndorsementAdapter.
             facNum = view.findViewById(R.id.facNum);
             isStudentEndorsed = view.findViewById(R.id.isEndorsedBox);
             studentNote = view.findViewById(R.id.note);
-//            studentMark = view.findViewById(R.id.studentMark);
         }
     }
 
@@ -51,7 +53,6 @@ public class EndorsementAdapter extends RecyclerView.Adapter<EndorsementAdapter.
         final Student student = data.get(position);
         holder.studentName.setText(student.getName());
         holder.facNum.setText(student.getFacNum());
-//        holder.isStudentEndorsed.setChecked(student.getIsEndorsed() == 1 ? true : false);
     }
 
     @Override

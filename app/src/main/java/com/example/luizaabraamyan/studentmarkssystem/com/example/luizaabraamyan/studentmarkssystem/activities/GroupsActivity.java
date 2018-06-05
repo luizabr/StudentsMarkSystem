@@ -1,14 +1,20 @@
-package com.example.luizaabraamyan.studentmarkssystem;
+package com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.activities;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
+
+import com.example.luizaabraamyan.studentmarkssystem.DBHelper;
+import com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan
+        .studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.objects.Group;
+import com.example.luizaabraamyan
+        .studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.adapters.GroupAdapter;
+import com.example.luizaabraamyan.studentmarkssystem.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,17 +25,15 @@ public class GroupsActivity extends Activity {
     private GroupAdapter adapter;
     SQLiteDatabase db;
     DBHelper dbHelper;
-    //Why is this here
-//    String groupNumber;
-    int subjectId;
+
     String idUniversityNum;
+    int subjectId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group);
-
         List<Group> groups = new ArrayList<>();
 
         dbHelper = new DBHelper(getApplicationContext());
@@ -37,30 +41,27 @@ public class GroupsActivity extends Activity {
 
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
+        idUniversityNum = bundle.getString("universityId");
         subjectId = bundle.getInt("subjectId");
-        idUniversityNum = bundle.getString("idUniversityNum");
-
-        //test
-//        Intent intent1 = new Intent("subjectIntent");
-//        intent1.putExtra("subjectId", subjectId);
-//        LocalBroadcastManager.getInstance(GroupsActivity.this).sendBroadcast(intent1);
-        //
 
         Cursor cursor = db.rawQuery("SELECT * FROM groups " +
-                "JOIN teachers_subjects_groups ON (teachers_subjects_groups.groupId = groups.groupId)"
-                + " JOIN subjects ON (teachers_subjects_groups.subjectId = subjects.subjectId)"
-                + " WHERE subjects.subjectId = '" + subjectId + "';", null);
+                "JOIN teachers_subjects_groups " +
+                "ON (teachers_subjects_groups.groupId = groups.groupId) " +
+                "JOIN subjects " +
+                "ON (teachers_subjects_groups.subjectId = subjects.subjectId) " +
+                "WHERE subjects.subjectId = '" + subjectId + "';", null);
 
-        if(cursor != null){
-            if(cursor.moveToFirst()){
-                do{
+        int cursorSize = cursor.getCount();
+        if (cursorSize != 0) {
+            if (cursor.moveToFirst()) {
+                do {
                     Group group = new Group();
                     group.setId(cursor.getInt(cursor.getColumnIndex("groupId")));
                     group.setGroupNumber(cursor.getInt(cursor.getColumnIndex("groupNumber")));
                     groups.add(group);
-                }while(cursor.moveToNext());
+                } while (cursor.moveToNext());
             }
-        }else{
+        } else {
             Toast.makeText(this,
                     "Няма регистрирани групи за този предмет!", Toast.LENGTH_SHORT).show();
         }

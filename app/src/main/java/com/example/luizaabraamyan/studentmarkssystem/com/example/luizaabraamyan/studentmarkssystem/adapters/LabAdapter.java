@@ -1,4 +1,4 @@
-package com.example.luizaabraamyan.studentmarkssystem;
+package com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,16 +8,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.luizaabraamyan.studentmarkssystem.com.example
+        .luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.objects.Lab;
+import com.example.luizaabraamyan.studentmarkssystem
+        .com.example.luizaabraamyan.studentmarkssystem.activities.LabStudentActivity;
+import com.example.luizaabraamyan.studentmarkssystem.R;
+
 import java.util.List;
 
-public class LabAdapter extends RecyclerView.Adapter<LabAdapter.LabViewHolder>  {
+public class LabAdapter extends RecyclerView.Adapter<LabAdapter.LabViewHolder> {
 
     private Context context;
     private static List<Lab> data;
 
-    public LabAdapter(Context context, List<Lab> objects) {
+    String idUniversityNum;
+    int subjectId;
+    int groupId;
+
+    public LabAdapter(Context context, List<Lab> objects, String idUniversityNum, int subjectId, int groupId) {
         this.context = context;
         data = objects;
+        this.idUniversityNum = idUniversityNum;
+        this.subjectId = subjectId;
+        this.groupId = groupId;
     }
 
     @Override
@@ -47,10 +60,10 @@ public class LabAdapter extends RecyclerView.Adapter<LabAdapter.LabViewHolder>  
             public void onClick(View v) {
                 Intent intent = new Intent(context, LabStudentActivity.class);
                 intent.putExtra("labId", lab.getLabId());
+                intent.putExtra("universityId", idUniversityNum);
+                intent.putExtra("subjectId", subjectId);
+                intent.putExtra("groupId", groupId);
                 context.startActivity(intent);
-//                Intent intent = new Intent(context, MarksActivity.class);
-//                intent.putExtra("groupId", group.getId());
-//                context.startActivity(intent);
             }
         });
     }
