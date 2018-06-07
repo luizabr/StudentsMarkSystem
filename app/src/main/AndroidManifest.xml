@@ -9,19 +9,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".com.example.luizaabraamyan.studentmarkssystem.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SubjectsActivity"></activity>
-        <activity android:name=".GroupsActivity"></activity>
-        <activity android:name=".StudentsActivity"></activity>
-        <activity android:name=".EditMarkActivity"></activity>
-        <activity android:name=".MenuActivity"></activity>
-        <activity android:name=".ViewAllStudentsActivity"></activity>
+        <activity android:name=".com.example.luizaabraamyan.studentmarkssystem.activities.SubjectsActivity"></activity>
+        <activity android:name=".com.example.luizaabraamyan.studentmarkssystem.activities.GroupsActivity"></activity>
+        <activity android:name=".com.example.luizaabraamyan.studentmarkssystem.activities.MarksActivity"></activity>
+        <activity android:name=".com.example.luizaabraamyan.studentmarkssystem.activities.EditMarkActivity"></activity>
+        <activity android:name=".com.example.luizaabraamyan.studentmarkssystem.activities.MenuActivity"></activity>
+        <activity android:name=".com.example.luizaabraamyan.studentmarkssystem.activities.ViewAllStudentsActivity"></activity>
+        <activity android:name=".com.example.luizaabraamyan.studentmarkssystem.activities.EndorsementsActivity"></activity>
+        <activity android:name=".com.example.luizaabraamyan.studentmarkssystem.activities.LabsActivity"></activity>
+        <activity android:name=".com.example.luizaabraamyan.studentmarkssystem.activities.LabStudentActivity"></activity>
+        <activity android:name=".com.example.luizaabraamyan.studentmarkssystem.activities.ViewAllScholarsActivity"></activity>
+
 
     </application>
 

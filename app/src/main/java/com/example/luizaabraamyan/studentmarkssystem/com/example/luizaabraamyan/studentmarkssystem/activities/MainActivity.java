@@ -1,4 +1,4 @@
-package com.example.luizaabraamyan.studentmarkssystem;
+package com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,12 +11,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.luizaabraamyan.studentmarkssystem.DBHelper;
+import com.example.luizaabraamyan.studentmarkssystem.R;
+
 public class MainActivity extends Activity {
 
     private static final String TAG = "MainActivity";
 
     EditText idUniversityNum;
     Button login;
+
     SQLiteDatabase db;
     DBHelper dbHelper;
     Cursor cursor;
@@ -37,35 +41,33 @@ public class MainActivity extends Activity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(idUniversityNum.getText().length() == 0) {
+                if (idUniversityNum.getText().length() == 0) {
                     Toast.makeText(context,
                             "Полето е празно!", Toast.LENGTH_SHORT).show();
                     return;
-                } else if(idUniversityNum.getText().length() != 5) {
+                } else if (idUniversityNum.getText().length() != 5) {
                     Toast.makeText(context,
                             "Грешен идентификационен номер!", Toast.LENGTH_SHORT).show();
-                } else if(idUniversityNum.getText().length() == 5){
+                } else if (idUniversityNum.getText().length() == 5) {
                     cursor = db.rawQuery("SELECT * FROM teachers "
                             + "WHERE universityId = '"
                             + idUniversityNum.getText()
                             + "';", null);
-                    if(cursor.getCount() == 0){
+                    if (cursor.getCount() == 0) {
                         Toast.makeText(context,
                                 "Несъществуващ идентификационен номер!", Toast.LENGTH_SHORT).show();
-                    }else{
+                    } else {
                         Intent intent = new Intent(context, SubjectsActivity.class);
-                        intent.putExtra("idUniversityNum", idUniversityNum.getText().toString());
+                        intent.putExtra("universityId", idUniversityNum.getText().toString());
                         context.startActivity(intent);
-
                     }
                 }
                 clearText();
             }
         });
-        }
+    }
 
-    public void clearText()
-    {
+    public void clearText() {
         idUniversityNum.setText("");
     }
 }

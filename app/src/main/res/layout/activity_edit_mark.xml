@@ -62,5 +62,15 @@
             android:padding="12dp"
             android:text="Запази промените"
             android:textColor="#ffffff"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/homeBtn"
+            android:background="@drawable/buttonshape"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:padding="12dp"
+            android:text="Начало"
+            android:textColor="#ffffff"/>
     </LinearLayout>
 </ScrollView>

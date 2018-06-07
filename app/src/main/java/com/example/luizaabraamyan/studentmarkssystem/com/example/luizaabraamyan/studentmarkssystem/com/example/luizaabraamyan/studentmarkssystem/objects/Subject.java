@@ -1,4 +1,4 @@
-package com.example.luizaabraamyan.studentmarkssystem;
+package com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.objects;
 
 public class Subject {
 

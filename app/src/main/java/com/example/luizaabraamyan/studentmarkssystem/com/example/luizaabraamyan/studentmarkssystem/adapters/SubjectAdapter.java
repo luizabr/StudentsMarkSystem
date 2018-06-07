@@ -1,4 +1,4 @@
-package com.example.luizaabraamyan.studentmarkssystem;
+package com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,16 +8,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.luizaabraamyan.studentmarkssystem.R;
+import com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan
+        .studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.objects.Subject;
+import com.example.luizaabraamyan.studentmarkssystem.com.example
+        .luizaabraamyan.studentmarkssystem.activities.GroupsActivity;
+
 import java.util.List;
 
 public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectViewHolder> {
 
     private Context context;
     private static List<Subject> data;
+    String idUniversityNum;
 
-    public SubjectAdapter(Context context, List<Subject> objects) {
+
+    public SubjectAdapter(Context context, List<Subject> objects, String idUniversityNum) {
         this.context = context;
         data = objects;
+        this.idUniversityNum = idUniversityNum;
     }
 
     @Override
@@ -46,6 +55,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<SubjectAdapter.SubjectV
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, GroupsActivity.class);
+                intent.putExtra("universityId", idUniversityNum);
                 intent.putExtra("subjectId", subject.getId());
                 context.startActivity(intent);
             }

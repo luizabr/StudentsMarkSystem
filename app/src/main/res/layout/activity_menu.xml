@@ -13,24 +13,41 @@
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
-        <TextView
-            android:id="@+id/successMsgLbl"
-            android:layout_width="300dp"
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/addMarkBtn"
+            android:background="@drawable/buttonshape"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Успешно записахте въведените оценки!"
-            android:textAlignment="center"
-            android:textColor="#ffffff"
-            android:textStyle="bold"
-            android:textSize="21dp"/>
+            android:padding="12dp"
+            android:text="Нанеси оценка"
+            android:textColor="#ffffff" />
 
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/addEndorsementBtn"
+            android:background="@drawable/buttonshape"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:padding="12dp"
+            android:text="Завери"
+            android:textColor="#ffffff" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/addAttendanceBtn"
+            android:background="@drawable/buttonshape"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:padding="12dp"
+            android:text="Нанеси присъствия"
+            android:textColor="#ffffff" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/editMarkBtn"
             android:background="@drawable/buttonshape"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="20dp"
             android:padding="12dp"
             android:text="Промени оценка"
             android:textColor="#ffffff" />
@@ -40,9 +57,19 @@
             android:background="@drawable/buttonshape"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="20dp"
             android:padding="12dp"
             android:text="Покажи всички студенти"
+            android:textColor="#ffffff"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/viewScholarsBtn"
+            android:background="@drawable/buttonshape"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:padding="12dp"
+            android:text="Покажи всички стипендианти"
             android:textColor="#ffffff"/>
 
         <android.support.v7.widget.AppCompatButton
@@ -50,7 +77,7 @@
             android:background="@drawable/buttonshape"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="20dp"
             android:padding="12dp"
             android:text="Изход"
             android:textColor="#ffffff"/>

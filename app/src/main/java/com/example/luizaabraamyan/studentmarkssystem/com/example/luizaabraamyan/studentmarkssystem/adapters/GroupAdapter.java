@@ -1,4 +1,4 @@
-package com.example.luizaabraamyan.studentmarkssystem;
+package com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,16 +8,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.luizaabraamyan.studentmarkssystem.com.example.luizaabraamyan
+        .studentmarkssystem.com.example.luizaabraamyan.studentmarkssystem.objects.Group;
+import com.example.luizaabraamyan.studentmarkssystem.R;
+import com.example.luizaabraamyan.studentmarkssystem.com
+        .example.luizaabraamyan.studentmarkssystem.activities.MenuActivity;
+
 import java.util.List;
 
-public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHolder>  {
+public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHolder> {
 
     private Context context;
     private static List<Group> data;
 
-    public GroupAdapter(Context context, List<Group> objects) {
+    String idUniversityNum;
+    int subjectId;
+
+    public GroupAdapter(Context context, List<Group> objects, int subjectId, String idUniversityNum) {
         this.context = context;
         data = objects;
+        this.subjectId = subjectId;
+        this.idUniversityNum = idUniversityNum;
     }
 
     @Override
@@ -45,8 +56,10 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.GroupViewHol
         holder.number.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, StudentsActivity.class);
+                Intent intent = new Intent(context, MenuActivity.class);
                 intent.putExtra("groupId", group.getId());
+                intent.putExtra("subjectId", subjectId);
+                intent.putExtra("universityId", idUniversityNum);
                 context.startActivity(intent);
             }
         });
