@@ -53,6 +53,12 @@ public class EndorsementAdapter extends RecyclerView.Adapter<EndorsementAdapter.
         final Student student = data.get(position);
         holder.studentName.setText(student.getName());
         holder.facNum.setText(student.getFacNum());
+        if(student.getIsEndorsed() == 1){
+            holder.isStudentEndorsed.setChecked(true);
+        }else{
+            holder.isStudentEndorsed.setChecked(false);
+        }
+
     }
 
     @Override

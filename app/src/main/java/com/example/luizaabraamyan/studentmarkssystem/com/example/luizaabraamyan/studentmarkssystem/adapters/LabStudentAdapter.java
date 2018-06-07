@@ -51,6 +51,12 @@ public class LabStudentAdapter extends RecyclerView.Adapter<LabStudentAdapter.St
         final Student student = data.get(position);
         holder.studentName.setText(student.getName());
         holder.facNum.setText(student.getFacNum());
+        if(student.getIsPresent() == 1){
+            holder.isPresent.setChecked(true);
+        }else{
+            holder.isPresent.setChecked(false);
+        }
+
     }
 
     @Override

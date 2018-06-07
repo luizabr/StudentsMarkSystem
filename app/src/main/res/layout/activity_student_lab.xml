@@ -6,21 +6,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view_student_lab"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:clipToPadding="false"
-            android:descendantFocusability="beforeDescendants"
-            android:paddingBottom="20dp"
-            android:scrollbars="vertical" />
-
         <Button
             android:id="@+id/checkAllBtn"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/recycler_view_student_lab"
             android:layout_marginLeft="37dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/buttoncolored"
@@ -69,6 +58,17 @@
             android:textAlignment="center"
             android:textColor="#ffffff"
             android:textSize="17dp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_student_lab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/homeBtn"
+            android:layout_gravity="center_horizontal"
+            android:clipToPadding="false"
+            android:descendantFocusability="beforeDescendants"
+            android:paddingBottom="20dp"
+            android:scrollbars="vertical" />
 
     </RelativeLayout>
 </ScrollView>

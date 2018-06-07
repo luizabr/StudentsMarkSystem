@@ -56,14 +56,11 @@ public class ViewAllScholarsActivity extends Activity {
         subjectId = bundle.getInt("subjectId");
         groupId = bundle.getInt("groupId");
 
-
-//        Cursor cursor = db.rawQuery("SELECT * FROM students JOIN students_marks " +
+//        Cursor cursor = db.rawQuery("SELECT AVG(marks.markNumber) as avg, students.studentId, " +
+//                "students.studentName, students.studentFacNum FROM students JOIN students_marks " +
 //                "ON(students_marks.studentId = students.studentId) " +
 //                "JOIN marks ON(students_marks.markId = marks.markId) " +
-//                "JOIN groups ON (students.groupId = groups.groupId) " +
-//                "JOIN teachers_subjects_groups ON (teachers_subjets_groups.groupId = groups.groupId) " +
-//                "JOIN teachers ON (teachers_subjets_groups.teacherId = teachers.teacherId) " +
-//                "WHERE AVG(marks.markNumber) > 4;", null);
+//                "WHERE avg > 4.00;", null);
 
         Cursor cursor = db.rawQuery("SELECT * FROM students " +
                 "WHERE students.studentTempMark > 4;", null);
