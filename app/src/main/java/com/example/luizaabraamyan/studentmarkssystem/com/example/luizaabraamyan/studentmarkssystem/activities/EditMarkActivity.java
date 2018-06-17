@@ -96,18 +96,26 @@ public class EditMarkActivity extends Activity {
                             "Въведете оценка между 2 и 6!", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
-                    newMark = Integer.valueOf(stMark.getText().toString());
 
-                    db.execSQL("UPDATE students SET studentTempMark = '" + newMark
-                            + "' WHERE students.studentFacNum = " + enterFacNum.getText() + ";");
 
-                    db.execSQL("UPDATE students_marks " +
-                            "SET markId = (SELECT marks.markId FROM marks " +
-                            "WHERE marks.markId = students_marks.markId " +
-                            "AND marks.markNumber = '" + newMark + "' );");
+                    if(Integer.valueOf(stMark.getText().toString()) <= 1 || Integer.valueOf(stMark.getText().toString()) >= 7){
+                        Toast.makeText(getApplicationContext(),
+                                "Въведете оценка между 2 и 6!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }else{
+                        newMark = Integer.valueOf(stMark.getText().toString());
+                        db.execSQL("UPDATE students SET studentTempMark = '" + newMark
+                                + "' WHERE students.studentFacNum = " + enterFacNum.getText() + ";");
 
-                    Toast.makeText(getApplicationContext(),
-                            "Оценката е успешно променена!", Toast.LENGTH_SHORT).show();
+                        db.execSQL("UPDATE students_marks " +
+                                "SET markId = (SELECT marks.markId FROM marks " +
+                                "WHERE marks.markId = students_marks.markId " +
+                                "AND marks.markNumber = '" + newMark + "' );");
+
+                        Toast.makeText(getApplicationContext(),
+                                "Оценката е успешно променена!", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
             }
         });

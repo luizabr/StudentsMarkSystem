@@ -103,9 +103,7 @@ public class MarksActivity extends Activity {
                     facNum = view.findViewById(R.id.facNum);
 
                     if (studentMark.getText().length() == 0) {
-                        Toast.makeText(getApplicationContext(),
-                                "Всички оценки трябва да са попълнени!", Toast.LENGTH_SHORT).show();
-                        return;
+                        mark = 0;
                     } else if (Integer.valueOf(studentMark.getText().toString()) <= 1 ||
                             Integer.valueOf(studentMark.getText().toString()) >= 7) {
                         Toast.makeText(getApplicationContext(),
@@ -113,21 +111,20 @@ public class MarksActivity extends Activity {
                         return;
                     } else {
                         mark = Integer.valueOf(studentMark.getText().toString());
-
-                        db.execSQL("UPDATE students SET studentTempMark = " +
-                                "'" + mark + "' WHERE students.studentFacNum = " + facNum.getText() + ";");
-
-                        db.execSQL("INSERT INTO students_marks SELECT students.studentId, markNumber FROM students " +
-                                "JOIN students_marks ON(students_marks.studentId = students.studentId) " +
-                                "JOIN marks ON(students_marks.markId = marks.markId) " +
-                                "JOIN groups ON(students.groupId = groups.groupId) " +
-                                "JOIN teachers_subjects_groups ON(teachers_subjects_groups.groupId = groups.groupId) " +
-                                "JOIN teachers ON(teachers_subjects_groups.teacherId = teachers.teacherId) " +
-                                " WHERE students.studentFacNum = " + facNum.getText() +
-                                " AND teachers_subjects_groups.subjectId = '" + subjectId +
-                                "' AND teachers.universityId = '" + idUniversityNum + "' AND marks.markNumber = '" + mark +
-                                "';");
                     }
+                    db.execSQL("UPDATE students SET studentTempMark = " +
+                            "'" + mark + "' WHERE students.studentFacNum = " + facNum.getText() + ";");
+
+                    db.execSQL("INSERT INTO students_marks SELECT students.studentId, markNumber FROM students " +
+                            "JOIN students_marks ON(students_marks.studentId = students.studentId) " +
+                            "JOIN marks ON(students_marks.markId = marks.markId) " +
+                            "JOIN groups ON(students.groupId = groups.groupId) " +
+                            "JOIN teachers_subjects_groups ON(teachers_subjects_groups.groupId = groups.groupId) " +
+                            "JOIN teachers ON(teachers_subjects_groups.teacherId = teachers.teacherId) " +
+                            " WHERE students.studentFacNum = " + facNum.getText() +
+                            " AND teachers_subjects_groups.subjectId = '" + subjectId +
+                            "' AND teachers.universityId = '" + idUniversityNum + "' AND marks.markNumber = '" + mark +
+                            "';");
                 }
                 Toast.makeText(getApplicationContext(),
                         "Оценката е успешно записана!", Toast.LENGTH_SHORT).show();
