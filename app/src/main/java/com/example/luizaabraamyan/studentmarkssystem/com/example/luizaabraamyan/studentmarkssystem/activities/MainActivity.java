@@ -20,6 +20,7 @@ public class MainActivity extends Activity {
 
     EditText idUniversityNum;
     Button login;
+    Button GDPRBtn;
 
     SQLiteDatabase db;
     DBHelper dbHelper;
@@ -34,6 +35,7 @@ public class MainActivity extends Activity {
 
         idUniversityNum = findViewById(R.id.universityID);
         login = findViewById(R.id.loginBtn);
+        GDPRBtn = findViewById(R.id.GDPRBtn);
         context = this;
         dbHelper = new DBHelper(getApplicationContext());
         db = dbHelper.getWritableDatabase();
@@ -63,6 +65,23 @@ public class MainActivity extends Activity {
                     }
                 }
                 clearText();
+            }
+        });
+
+        GDPRBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                for(int i = 0; i < 2; i++){
+                    Toast.makeText(context,
+                            "Здравейте,Поверителността и сигурността на личните данни " +
+                                    "винаги е била от първостепенно значение. В тази връзка, " +
+                                    "Ви информираме, че считано от 25.05.2018 г. влизат в сила нови " +
+                                    "европейски изисквания за защита на личните данни. Съхраняването" +
+                                    "на личните данни на студентите, се осъществява съгласно Политика за" +
+                                    "обработване и защита на лични данни на студенти.", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
     }
